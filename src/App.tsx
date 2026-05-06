@@ -34,7 +34,7 @@ export default function App() {
       description: "Un'interfaccia curata progettata per il consumo rapido di informazioni. Fornisce riassunti quotidiani delle notizie globali con un'estetica editoriale pulita.",
       tags: ["vibe coding", "news api", "ux ritual"],
       imageUrl: "/daily-brief-cover.png",
-      link: "https://vers1517.github.io/daily-brief/"
+      link: "https://dmntroiani.github.io/Daily-Brief/"
     }
   ];
 
