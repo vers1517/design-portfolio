@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Damiano Troiani | Portfolio</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Playfair+Display:italic,wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & Framer Motion CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            overflow-x: hidden;
+        }
+        .gap-1px { gap: 1px; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { motion, AnimatePresence } = FramerMotion;
+
+        // Icons placeholder (since we use CDN, we'll use lucide-react via data-lucide or simple SVG)
+        const ArrowUpRight = ({ className }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+        );
+
+        const Navbar = () => {
+            return (
+                <nav className="fixed top-0 left-0 w-full z-50 p-6 md:p-10 pointer-events-none">
+                    <div className="max-w-[1400px] mx-auto flex justify-between items-center pointer-events-auto">
+                        <a href="#" className="font-display font-black text-xl tracking-tighter uppercase">DT.</a>
+                        <div className="hidden md:flex items-center gap-12 bg-black/5 backdrop-blur-md px-8 py-3 rounded-full border border-black/5">
+                            <a href="#work" className="text-[10px] uppercase font-bold tracking-widest hover:text-orange-500 transition-colors">Portfolio</a>
+                            <a href="#about" className="text-[10px] uppercase font-bold tracking-widest hover:text-orange-500 transition-colors">About</a>
+                            <a href="#contact" className="text-[10px] uppercase font-bold tracking-widest hover:text-orange-500 transition-colors">Contatti</a>
+                        </div>
+                        <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center md:hidden">
+                            <div className="w-4 h-[1px] bg-white mb-1"></div>
+                            <div className="w-4 h-[1px] bg-white"></div>
+                        </div>
+                    </div>
+                </nav>
+            );
+        };
+
+        const App = () => {
+            const expertise = [
+                { title: "Service Design", desc: "Supporto alla progettazione di servizi digitali per la PA." },
+                { title: "UX Writing", desc: "Microcopy e contenuti integrati nei flussi utente." },
+                { title: "User Experience", desc: "Ottimizzazione dei flussi e delle interazioni digitali." },
+                { title: "AI & Conversational", desc: "Contributo a contenuti per sistemi basati su AI." }
+            ];
+
+            return (
+                <div className="w-full">
+                    <Navbar />
+                    
+                    {/* Hero Section */}
+                    <section className="min-h-screen flex flex-col justify-center px-6 md:px-24 pt-32 pb-16">
+                        <div className="max-w-[1400px] mx-auto">
+                            <h1 className="font-display text-6xl md:text-[12rem] font-black uppercase tracking-tighter leading-[0.85] mb-12">
+                                UX Writer<br />
+                                <span className="opacity-20">&</span> Designer
+                            </h1>
+                            <div className="flex flex-col md:flex-row gap-12 items-start md:items-end">
+                                <p className="max-w-md text-xl md:text-2xl font-medium leading-tight tracking-tight">
+                                    Ciao, sono Damiano. Progetto contenuti e flussi digitali per rendere i servizi più semplici, chiari e vicini ai cittadini.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Expertise Grid 2x2 */}
+                    <section id="about" className="py-24 px-6 md:px-24 bg-zinc-950 text-white">
+                        <div className="max-w-[1400px] mx-auto">
+                            <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-16">Expertise</h2>
+                            <div className="grid md:grid-cols-2 gap-1px bg-white/10 border border-white/10">
+                                {expertise.map((item) => (
+                                    <div key={item.title} className="bg-zinc-950 p-12 md:p-20 hover:bg-zinc-900 transition-colors">
+                                        <h3 className="font-display text-4xl font-bold uppercase tracking-tighter mb-4">{item.title}</h3>
+                                        <p className="text-white/50 max-w-xs">{item.desc}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Footer Section */}
+                    <footer id="contact" className="py-24 md:py-64 px-6 md:px-24 bg-white text-black">
+                        <div className="max-w-[1400px] mx-auto">
+                            <div className="flex flex-col gap-12 mb-24 md:mb-32">
+                                <h2 className="text-[10px] uppercase tracking-[0.4em] text-black/30 font-bold">Contact</h2>
+                                
+                                <a href="mailto:dmntroiani@gmail.com" className="group flex flex-col items-start">
+                                    <span className="font-display text-4xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter leading-[0.85] text-black transition-transform duration-700 group-hover:-translate-y-2 inline-block">
+                                        Let's work<br />
+                                        <span className="text-orange-500 italic font-serif lowercase opacity-90">together</span>
+                                    </span>
+
+                                    <div className="mt-12 md:mt-24 flex items-center gap-6 md:gap-12 group-hover:gap-16 transition-all duration-700 ease-out">
+                                        <span className="text-xl md:text-4xl lg:text-5xl font-display font-medium tracking-tight border-b-2 md:border-b-4 border-black/10 group-hover:border-black transition-all">
+                                            dmntroiani@gmail.com
+                                        </span>
+                                        <div className="w-12 h-12 md:w-24 md:h-24 rounded-full border-2 border-black flex items-center justify-center group-hover:bg-black group-hover:text-white transition-all duration-500">
+                                            <ArrowUpRight className="w-6 h-6 md:w-12 md:h-12 group-hover:rotate-45 transition-transform" />
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 pt-12 border-t border-black/10">
+                                <div className="flex gap-8">
+                                    <a href="https://www.linkedin.com/in/damianotroiani" target="_blank" rel="noopener noreferrer" className="text-[10px] uppercase tracking-widest font-bold hover:opacity-50 transition-opacity">LinkedIn</a>
+                                    <a href="cv.pdf" target="_blank" rel="noopener noreferrer" className="text-[10px] uppercase tracking-widest font-bold hover:opacity-50 transition-opacity">Curriculum Vitae</a>
+                                </div>
+                                <div className="text-[10px] uppercase tracking-[0.2em] font-bold text-black/30">
+                                    © 2024 Damiano Troiani
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
