@@ -297,7 +297,7 @@ export default function App() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 pt-12 border-t border-white/10">
             <div className="flex gap-8">
               <a href="https://www.linkedin.com/in/damianotroiani" target="_blank" rel="noopener noreferrer" className="text-[10px] uppercase tracking-widest font-bold hover:opacity-50 transition-opacity">LinkedIn</a>
-              <a href="/cv.pdf" target="_blank" rel="noopener noreferrer" className="text-[10px] uppercase tracking-widest font-bold hover:opacity-50 transition-opacity">Resume</a>
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="text-[10px] uppercase tracking-widest font-bold hover:opacity-50 transition-opacity">Resume</a>
             </div>
             <div className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/30">
               Damiano Troiani © {new Date().getFullYear()}

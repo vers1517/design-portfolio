@@ -127,7 +127,7 @@ export function Navbar() {
               <a href="https://www.linkedin.com/in/damianotroiani" target="_blank" rel="noopener noreferrer" className="text-[10px] uppercase font-bold tracking-widest text-black/30 hover:text-black transition-colors">
                 LinkedIn
               </a>
-              <a href="/cv.pdf" target="_blank" rel="noopener noreferrer" className="text-[10px] uppercase font-bold tracking-widest text-black/30 hover:text-black transition-colors">
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="text-[10px] uppercase font-bold tracking-widest text-black/30 hover:text-black transition-colors">
                 Resume
               </a>
             </motion.div>
@@ -193,7 +193,7 @@ export function Navbar() {
               <a href="mailto:dmntroiani@gmail.com" className="text-xl font-bold text-black">dmntroiani@gmail.com</a>
               <div className="flex gap-6 mt-8">
                 <a href="https://www.linkedin.com/in/damianotroiani" target="_blank" rel="noopener noreferrer" className="text-[10px] text-black/40 uppercase tracking-widest font-bold">LinkedIn</a>
-                <a href="/cv.pdf" target="_blank" rel="noopener noreferrer" className="text-[10px] text-black/40 uppercase tracking-widest font-bold">Resume</a>
+                <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="text-[10px] text-black/40 uppercase tracking-widest font-bold">Resume</a>
               </div>
             </div>
           </motion.div>
