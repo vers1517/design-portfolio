@@ -5,11 +5,11 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Sora", sans-serif;
   --font-serif: "Playfair Display", serif;
-  --color-brand-bg: #000000;
-  --color-brand-surface: #0A0A0A;
-  --color-brand-text: #FFFFFF;
-  --color-brand-muted: rgba(255, 255, 255, 0.4);
-  --color-brand-border: rgba(255, 255, 255, 0.08);
+  --color-brand-bg: #FFFFFF;
+  --color-brand-surface: #F9F9F9;
+  --color-brand-text: #000000;
+  --color-brand-muted: rgba(0, 0, 0, 0.4);
+  --color-brand-border: rgba(0, 0, 0, 0.08);
 }
 
 @layer base {
