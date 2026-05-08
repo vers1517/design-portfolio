@@ -113,7 +113,7 @@ export default function App() {
       </section>
 
       {/* Intro Section - Chi sono */}
-      <section id="about" className="py-24 md:py-64 px-6 md:px-24 relative z-10 overflow-hidden">
+      <section id="about" className="py-16 md:py-32 px-6 md:px-24 relative z-10 overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-12 gap-12 md:gap-24 items-start">
             <div className="lg:col-span-8">
@@ -146,16 +146,16 @@ export default function App() {
       </section>
 
       {/* Works Section Heading */}
-      <section id="work" className="py-24 md:py-48 px-6 md:px-24 bg-brand-surface border-t border-white/5 relative z-10 overflow-hidden">
+      <section id="work" className="py-16 md:py-24 px-6 md:px-24 bg-brand-surface border-t border-white/5 relative z-10 overflow-hidden">
         <div className="max-w-[1400px] mx-auto">
-          <div className="flex flex-col gap-4 md:gap-6 mb-20 md:mb-64">
+          <div className="flex flex-col gap-4 md:gap-6 mb-12 md:mb-32">
             <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/30 font-bold">Portfolio</h2>
             <h3 className="font-display text-6xl md:text-[12rem] font-bold tracking-tighter text-white uppercase leading-none select-none">
               Works
             </h3>
           </div>
 
-          <div className="space-y-48 md:space-y-80">
+          <div className="space-y-32 md:space-y-48">
             {projects.map((project, index) => (
               <motion.div 
                 key={project.title}
@@ -166,7 +166,7 @@ export default function App() {
                 className="relative flex flex-col items-center text-center max-w-5xl mx-auto"
               >
                 {/* Image */}
-                <div className="w-full mb-12 md:mb-20">
+                <div className="w-full mb-8 md:mb-12">
                   <a href={project.link} target="_blank" rel="noopener noreferrer" className="block relative aspect-[16/10] overflow-hidden rounded-sm border border-white/5 bg-brand-surface group">
                     <motion.img 
                       src={project.imageUrl} 
@@ -209,9 +209,9 @@ export default function App() {
       </section>
 
       {/* Expertise */}
-      <section id="expertise" className="py-32 md:py-64 px-6 md:px-24 border-t border-white/5 relative overflow-hidden">
+      <section id="expertise" className="py-20 md:py-32 px-6 md:px-24 border-t border-white/5 relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto">
-          <div className="flex flex-col gap-6 mb-32">
+          <div className="flex flex-col gap-6 mb-16">
             <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/30 font-bold">Expertise</h2>
             <h3 className="font-display text-7xl md:text-[10rem] font-bold tracking-tight text-white uppercase leading-[0.85] select-none">
               Skills <br/>
@@ -244,7 +244,7 @@ export default function App() {
       </section>
 
       {/* Footer */}
-      <footer id="contact" className="py-24 md:py-64 px-6 md:px-24 border-t border-white/5 bg-white text-black">
+      <footer id="contact" className="py-20 md:py-32 px-6 md:px-24 border-t border-white/5 bg-white text-black">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex flex-col gap-12 mb-24 md:mb-32">
             <h2 className="text-[10px] uppercase tracking-[0.4em] text-black/30 font-bold">Contact</h2>
