@@ -31,52 +31,52 @@ export default function App() {
   // Manifesto di design con alta leggibilità (indice Gulpease > 80)
   const designManifestoPoints = [
     {
-      term: "Scrittura funzionale",
-      desc: "Scrivo microtesti utili e diretti. Elimino le parole inutili. Rendo le istruzioni veloci da capire."
+      term: "UX Writing & Microcopy",
+      desc: "Scrivo parole funzionali, bottoni chiari e messaggi rassicuranti. Rendo i flussi d'uso facili da comprendere per chiunque."
     },
     {
-      term: "Inclusione visiva",
-      desc: "Progetto flussi per tutti. Rispetto i contrasti di colore e offro percorsi facili da navigare."
+      term: "User Experience Design",
+      desc: "Progetto l'architettura logica dello schermo. Elimino le frizioni visive e i passaggi inutili per semplificare la navigazione."
     },
     {
-      term: "Architettura chiara",
-      desc: "Un buon design non si fa notare. Organizzo lo spazio e guido le persone in modo naturale."
+      term: "AI Conversazionale",
+      desc: "Disegno dialoghi uomo-macchina naturali. Allineo il tono di voce delle intelligenze artificiali ai bisogni delle persone reali."
     }
   ];
 
   const works = [
     {
       title: "Green-Zine",
-      subtitle: "Progetto di editoria digitale",
+      subtitle: "Editoria digitale e UX Design",
       collaboration: "Design per l'ecologia",
       period: "Progetto — 2025",
-      description: "Un giornale digitale focalizzato sullo sviluppo sostenibile. È ispirato alla carta stampata ma si legge sullo schermo del telefono.",
-      editorialAnalysis: "Ho ideato testi brevi e immediati. Ho eliminato i termini tecnici pesanti. Ho usato esempi di tutti i giorni per visualizzare i concetti chiave.",
-      methodology: ["Strategia testi", "Semplificazione", "Scrittura ecologica"],
+      description: "Un giornale digitale focalizzato sullo sviluppo sostenibile. Ho definito l'architettura delle informazioni e la gerarchia visiva delle notizie per una fluidità di lettura totale.",
+      editorialAnalysis: "Ho ridisegnato i blocchi di testo e ridotto gli elementi di distrazione visiva. Ho sostituito la terminologia complessa con parole d'uso comune.",
+      methodology: ["Architettura contenuti", "UX Layout", "Semplificazione testi"],
       imageUrl: "/green-zine-cover.png",
       link: "https://www.figma.com/deck/OKbXZOpSw6VvlPvybG1uA2/Green-Zine?node-id=2233-245&t=hpK4zKIwsiwssh7I-1",
       catalogNum: "01"
     },
     {
       title: "ConTe",
-      subtitle: "Servizio di cura inclusivo",
+      subtitle: "Servizio inclusivo e Assistenza vocale",
       collaboration: "Salute e accessibilità",
       period: "Progetto — 2025",
-      description: "Una app progettata per connettere persone anziane e medici. Permette di richiedere assistenza in modo rapido, calmo e intuitivo.",
-      editorialAnalysis: "Ho scelto caratteri spaziosi e chiari. Ho scritto messaggi di conferma rassicuranti. Ho rimosso il linguaggio medico per evitare dubbi.",
-      methodology: ["Scrittura inclusiva", "Accessibilità", "Design dei servizi"],
+      description: "Un'applicazione mobile nata per connettere persone anziane e medici di base. Unisce flussi protettivi, microtesti molto leggibili e un assistente vocale accessibile.",
+      editorialAnalysis: "Ho strutturato pulsanti grandi e contrastati, messaggi di errore privi di gergo tecnico e istruzioni vocali calibrate su un tono di voce calmo e rassicurante.",
+      methodology: ["Scrittura inclusiva", "UX Design vocale", "Accessibilità WCAG"],
       imageUrl: "/conte-cover.png",
       link: "https://www.figma.com/deck/F91mmJNBAiIxqUtPWk2Fx5/ConTe?node-id=0-1&t=s2slahbvo3zM8pYy-1",
       catalogNum: "02"
     },
     {
       title: "Daily Brief",
-      subtitle: "Esperimento editoriale",
-      collaboration: "Cura dei contenuti",
+      subtitle: "Personalized News Hub",
+      collaboration: "Cura dei contenuti & Identità",
       period: "Progetto — 2026",
-      description: "Un portale minimalista che sintetizza gli eventi del mondo. Riformula i titoli sensazionalistici per offrire informazioni pulite e oneste.",
-      editorialAnalysis: "Ho curato sommari con frasi precise e brevi. L'interfaccia elimina il superfluo. L'intero riassunto si legge in meno di due minuti.",
-      methodology: ["Sintesi prototipo", "Interfacce chiare", "Flussi di lettura"],
+      description: "Un hub editoriale dove le notizie non vengono uniformate o riprodotte in blocco. L'utente seleziona le testate preferite e accede ai siti originali tramite collegamenti diretti.",
+      editorialAnalysis: "Il design di una pagina è parte dell'informazione stessa. Rispettare la grafica originale di ogni quotidiano è essenziale per capire il contesto delle notizie. È una scelta per combattere l'appiattimento visivo dei soliti aggregatori.",
+      methodology: ["Identità visiva", "Architettura notizie", "Flussi liberi"],
       imageUrl: "/daily-brief-cover.png",
       link: "https://dmntroiani.github.io/Daily-Brief/",
       catalogNum: "03"
@@ -86,27 +86,27 @@ export default function App() {
   const services = [
     {
       num: "01",
-      category: "Microcopy e testi per interfacce",
-      summary: "Scrivo le scritte dei bottoni, i testi di aiuto e i messaggi del sistema. Aiuto le persone a capire cosa fare e a non sbagliare.",
-      curatedFocus: ["Bottoni intuitivi", "Errori facili", "Istruzioni rapide", "Tono di voce curato"]
+      category: "UX Writing & Content Strategy",
+      summary: "Scrivo i microtesti delle interfacce: bottoni, avvisi di errore, flussi di attivazione e guide d'uso. Elimino le barriere linguistiche e guido le persone a destinazione.",
+      curatedFocus: ["Tono di voce unico", "Copy dei bottoni", "Semplificazione istruzioni", "Contrasto e accessibilità"]
     },
     {
       num: "02",
-      category: "Semplificazione dei flussi",
-      summary: "Studio come le persone usano un servizio digitale. Elimino le parti complesse per renderlo immediato e gradevole.",
-      curatedFocus: ["Mappe d'esperienza", "Coinvolgimento utenti", "Moduli immediati", "Test di utilizzo"]
+      category: "UX Design & Flussi di Prodotto",
+      summary: "Studio le mappe d'esperienza e l'ordine delle schermate. Rendo i siti web e le applicazioni mobili intuitive, piacevoli da navigare e prive di blocchi visivi.",
+      curatedFocus: ["Mappe di navigazione", "Wireframe geometrici", "Test di usabilità", "Inclusione visiva"]
     },
     {
       num: "03",
-      category: "Architettura dei contenuti",
-      summary: "Riordino le informazioni del sito e i menu. Rendo veloce trovare i collegamenti e i dati importanti.",
-      curatedFocus: ["Menu semplici", "Ricerche facilitate", "Nomi di pagina chiari", "Logica visiva"]
+      category: "AI Conversazionale & Prompt Design",
+      summary: "Costruisco la personalità, il tono e gli schemi di dialogo per assistenti virtuali e agenti basati su AI. Traduco la complessità artificiale in un dialogo logico e umano.",
+      curatedFocus: ["Flussi conversazionali", "Istruzioni per l'AI", "Prevenzione errori macchina", "Dialoghi naturali"]
     },
     {
       num: "04",
-      category: "Sistemi di dialogo e AI",
-      summary: "Scrivo le strutture di conversazione per gli assistenti automatici. Rendo la tecnologia facile da usare come un dialogo informale.",
-      curatedFocus: ["Risposte immediate", "Conversazioni fluide", "Chiarezza digitale", "Linguaggio comune"]
+      category: "Architettura dell'Informazione",
+      summary: "Organizzo e categorizzo i contenuti, i menu principali e l'albero di navigazione. Permetto alle persone di trovare ciò che cercano nel minor tempo possibile.",
+      curatedFocus: ["Menu ad alta leggibilità", "Logica di ricerca", "Sistemi di etichette", "Gerarchie chiare"]
     }
   ];
 
@@ -139,12 +139,12 @@ export default function App() {
             {/* Titolo Principale in Helvetica Moderno ed Elegante */}
             <div className="my-6">
               <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest block mb-4">
-                [ UX Content Designer ]
+                [ UX Writer · UX Designer · Conversational AI ]
               </span>
               <h1 className="font-sans text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.15] text-neutral-900 tracking-tight">
-                Disegno testi semplici per prodotti digitali. <br />
-                <span className="text-neutral-400 font-light">Elimino il rumore visivo.</span> <br />
-                Miglioro l'uso delle piattaforme.
+                Disegno testi, flussi e dialoghi intelligenti. <br />
+                <span className="text-neutral-400 font-light">Risolvo problemi di usabilità.</span> <br />
+                Progetto ponti naturali tra persone ed AI.
               </h1>
             </div>
 
@@ -414,7 +414,7 @@ export default function App() {
               </div>
 
               <div className="text-[10px] font-mono uppercase tracking-[0.12em] text-neutral-500">
-                <div>Damiano Troiani © {new Date().getFullYear()} – Scrittore di interfacce.</div>
+                <div>Damiano Troiani © {new Date().getFullYear()} – Parole, flussi e dialoghi uomo-AI.</div>
                 <div className="text-[8px] text-neutral-600 mt-1 uppercase leading-normal">
                   "Autorizzo il trattamento dei dati personali (D. Lgs. 196/2003 e Regolamento UE 2016/679)"
                 </div>

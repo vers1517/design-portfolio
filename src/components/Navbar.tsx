@@ -66,7 +66,7 @@ export function Navbar() {
                   D. TROIANI
                 </span>
                 <span className="text-[8px] font-mono tracking-widest text-neutral-400 uppercase mt-0.5">
-                  Designer di testi
+                  UX WRITER | UX DESIGNER
                 </span>
               </a>
               <button 
