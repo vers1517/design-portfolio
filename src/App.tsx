@@ -1,311 +1,431 @@
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useState, useEffect } from 'react';
 import { cn } from './lib/utils';
 import { 
   ArrowUpRight, 
-  ArrowDown,
-  ArrowRight,
-  Github, 
-  Linkedin, 
-  Mail, 
-  Twitter, 
-  Cpu, 
-  Palette, 
-  Layout, 
-  Globe
+  ArrowRight
 } from 'lucide-react';
 import { Navbar } from './components/Navbar';
 
 export default function App() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeProject, setActiveProject] = useState<number | null>(0);
+  const [time, setTime] = useState('');
 
+  // Sincronizza l'orologio dell'interfaccia
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
+    const updateTime = () => {
+      const options: Intl.DateTimeFormatOptions = {
+        timeZone: 'Europe/Rome',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+      };
+      setTime(new Intl.DateTimeFormat('it-IT', options).format(new Date()));
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
   }, []);
 
-  const projects = [
+  // Manifesto di design con alta leggibilità (indice Gulpease > 80)
+  const designManifestoPoints = [
     {
-      title: "Green-Zine",
-      description: "Un progetto editoriale digitale dedicato alla sostenibilità. Focalizzato su una ricerca UX approfondita e un content design curato per sensibilizzare all'ecologia.",
-      tags: ["ux research", "ux design", "content design"],
-      imageUrl: "/green-zine-cover.png",
-      link: "https://www.figma.com/deck/OKbXZOpSw6VvlPvybG1uA2/Green-Zine?node-id=2233-245&t=hpK4zKIwsiwssh7I-1"
+      term: "Scrittura funzionale",
+      desc: "Scrivo microtesti utili e diretti. Elimino le parole inutili. Rendo le istruzioni veloci da capire."
     },
     {
-      title: "ConTe",
-      description: "Un'esplorazione di design focalizzata sull'interazione e l'accessibilità, mirata a semplificare processi complessi per l'utente finale.",
-      tags: ["ux research", "ux design", "wcag design principles"],
-      imageUrl: "/conte-cover.png",
-      link: "https://www.figma.com/deck/F91mmJNBAiIxqUtPWk2Fx5/ConTe?node-id=0-1&t=s2slahbvo3zM8pYy-1"
+      term: "Inclusione visiva",
+      desc: "Progetto flussi per tutti. Rispetto i contrasti di colore e offro percorsi facili da navigare."
     },
     {
-      title: "Daily Brief",
-      description: "Un'interfaccia curata progettata per il consumo rapido di informazioni. Fornisce riassunti quotidiani delle notizie globali con un'estetica editoriale pulita.",
-      tags: ["vibe coding", "news api", "ux ritual"],
-      imageUrl: "/daily-brief-cover.png",
-      link: "https://dmntroiani.github.io/Daily-Brief/"
+      term: "Architettura chiara",
+      desc: "Un buon design non si fa notare. Organizzo lo spazio e guido le persone in modo naturale."
     }
   ];
 
-  const expertise = [
+  const works = [
     {
-      icon: <Layout className="w-6 h-6" />,
-      title: "1. Content Design & UX Writing",
-      desc: "Progetto contenuti chiari e accessibili integrati nei flussi, per guidare le persone nelle interazioni digitali."
+      title: "Green-Zine",
+      subtitle: "Progetto di editoria digitale",
+      collaboration: "Design per l'ecologia",
+      period: "Progetto — 2025",
+      description: "Un giornale digitale focalizzato sullo sviluppo sostenibile. È ispirato alla carta stampata ma si legge sullo schermo del telefono.",
+      editorialAnalysis: "Ho ideato testi brevi e immediati. Ho eliminato i termini tecnici pesanti. Ho usato esempi di tutti i giorni per visualizzare i concetti chiave.",
+      methodology: ["Strategia testi", "Semplificazione", "Scrittura ecologica"],
+      imageUrl: "/green-zine-cover.png",
+      link: "https://www.figma.com/deck/OKbXZOpSw6VvlPvybG1uA2/Green-Zine?node-id=2233-245&t=hpK4zKIwsiwssh7I-1",
+      catalogNum: "01"
     },
     {
-      icon: <Globe className="w-6 h-6" />,
-      title: "2. Service Design Thinking",
-      desc: "Analizzo bisogni e contesti per progettare servizi utili, semplici e centrati sulle persone."
+      title: "ConTe",
+      subtitle: "Servizio di cura inclusivo",
+      collaboration: "Salute e accessibilità",
+      period: "Progetto — 2025",
+      description: "Una app progettata per connettere persone anziane e medici. Permette di richiedere assistenza in modo rapido, calmo e intuitivo.",
+      editorialAnalysis: "Ho scelto caratteri spaziosi e chiari. Ho scritto messaggi di conferma rassicuranti. Ho rimosso il linguaggio medico per evitare dubbi.",
+      methodology: ["Scrittura inclusiva", "Accessibilità", "Design dei servizi"],
+      imageUrl: "/conte-cover.png",
+      link: "https://www.figma.com/deck/F91mmJNBAiIxqUtPWk2Fx5/ConTe?node-id=0-1&t=s2slahbvo3zM8pYy-1",
+      catalogNum: "02"
     },
     {
-      icon: <Cpu className="w-6 h-6" />,
-      title: "3. User Flows & Interaction",
-      desc: "Ottimizzo percorsi e micro-interazioni per ridurre attriti e semplificare esperienze complesse."
+      title: "Daily Brief",
+      subtitle: "Esperimento editoriale",
+      collaboration: "Cura dei contenuti",
+      period: "Progetto — 2026",
+      description: "Un portale minimalista che sintetizza gli eventi del mondo. Riformula i titoli sensazionalistici per offrire informazioni pulite e oneste.",
+      editorialAnalysis: "Ho curato sommari con frasi precise e brevi. L'interfaccia elimina il superfluo. L'intero riassunto si legge in meno di due minuti.",
+      methodology: ["Sintesi prototipo", "Interfacce chiare", "Flussi di lettura"],
+      imageUrl: "/daily-brief-cover.png",
+      link: "https://dmntroiani.github.io/Daily-Brief/",
+      catalogNum: "03"
+    }
+  ];
+
+  const services = [
+    {
+      num: "01",
+      category: "Microcopy e testi per interfacce",
+      summary: "Scrivo le scritte dei bottoni, i testi di aiuto e i messaggi del sistema. Aiuto le persone a capire cosa fare e a non sbagliare.",
+      curatedFocus: ["Bottoni intuitivi", "Errori facili", "Istruzioni rapide", "Tono di voce curato"]
     },
     {
-      icon: <Palette className="w-6 h-6" />,
-      title: "4. Collaboration & Systems Thinking",
-      desc: "Lavoro con team cross-funzionali per costruire soluzioni coerenti, scalabili e orientate agli obiettivi."
+      num: "02",
+      category: "Semplificazione dei flussi",
+      summary: "Studio come le persone usano un servizio digitale. Elimino le parti complesse per renderlo immediato e gradevole.",
+      curatedFocus: ["Mappe d'esperienza", "Coinvolgimento utenti", "Moduli immediati", "Test di utilizzo"]
+    },
+    {
+      num: "03",
+      category: "Architettura dei contenuti",
+      summary: "Riordino le informazioni del sito e i menu. Rendo veloce trovare i collegamenti e i dati importanti.",
+      curatedFocus: ["Menu semplici", "Ricerche facilitate", "Nomi di pagina chiari", "Logica visiva"]
+    },
+    {
+      num: "04",
+      category: "Sistemi di dialogo e AI",
+      summary: "Scrivo le strutture di conversazione per gli assistenti automatici. Rendo la tecnologia facile da usare come un dialogo informale.",
+      curatedFocus: ["Risposte immediate", "Conversazioni fluide", "Chiarezza digitale", "Linguaggio comune"]
     }
   ];
 
   return (
-    <div className={cn(
-      "min-h-screen font-sans selection:bg-zinc-200 bg-brand-bg text-brand-text overflow-x-hidden transition-[padding] duration-500",
-      isScrolled ? "md:pl-20" : "md:pl-[300px]"
-    )}>
+    <div className="min-h-screen bg-brand-bg text-brand-text font-sans selection:bg-neutral-900 selection:text-neutral-100 transition-all duration-300">
+      
+      {/* Barra laterale sinistra richidibile per desktop ed overlay responsive */}
       <Navbar />
-      {/* Hero Section */}
-      <section className="relative min-h-screen md:min-h-screen flex flex-col justify-center px-6 md:px-24 overflow-hidden pt-20">
-        <div className="relative z-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex items-center gap-4 md:gap-6 mb-8 md:mb-16"
-          >
-            <div className="w-8 md:w-12 h-[1px] bg-black opacity-20" />
-            <span className="text-[9px] md:text-[10px] uppercase tracking-[0.4em] text-black/40 font-bold">
-              Selected Works
-            </span>
-          </motion.div>
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <h1 className="font-display text-[clamp(64px,18vw,210px)] leading-[0.75] font-extrabold tracking-tighter text-black mb-12 md:mb-12 uppercase select-none">
-              Port<br/>folio
-            </h1>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 1 }}
-            className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end mt-8 md:mt-0"
-          >
-            <div className="md:col-span-6 lg:col-span-5">
-              <p className="text-[11px] md:text-xs text-black/40 leading-[1.8] font-medium uppercase tracking-[0.25em] max-w-sm md:max-w-md balance">
-                Progetto contenuti e servizi digitali che <br className="hidden md:block" /> 
-                <span className="text-black/60">semplificano la complessità</span> e guidano <br className="hidden md:block" />
-                le persone nelle interazioni.
+
+      {/* Area principale del contenuto */}
+      <div className="md:pl-[72px] min-h-screen flex flex-col transition-all duration-300">
+        
+        {/* HERO - Il mio Manifesto di Progettazione */}
+        <section className="relative px-6 md:px-16 lg:px-20 pt-28 md:pt-36 pb-20 md:pb-28 border-b border-black/[0.05]">
+          <div className="max-w-4xl mx-auto flex flex-col justify-between min-h-[40vh]">
+            
+            {/* Fascia superiore di tracciamento */}
+            <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-black/[0.04] mb-12">
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-neutral-400">
+                  Il mio portfolio
+                </span>
+              </div>
+              <div className="text-[10px] font-mono tracking-[0.15em] text-neutral-400 uppercase">
+                Roma / <span className="text-neutral-900 font-medium">{time}</span>
+              </div>
+            </div>
+
+            {/* Titolo Principale in Helvetica Moderno ed Elegante */}
+            <div className="my-6">
+              <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest block mb-4">
+                [ UX Content Designer ]
+              </span>
+              <h1 className="font-sans text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.15] text-neutral-900 tracking-tight">
+                Disegno testi semplici per prodotti digitali. <br />
+                <span className="text-neutral-400 font-light">Elimino il rumore visivo.</span> <br />
+                Miglioro l'uso delle piattaforme.
+              </h1>
+            </div>
+
+            {/* Elementi del Manifesto in griglia geometrica sfalsata */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-10 border-t border-black/[0.05] mt-10">
+              {designManifestoPoints.map((point, index) => (
+                <div key={point.term} className="flex flex-col gap-1.5">
+                  <span className="text-[10px] font-mono text-neutral-400 font-medium">
+                    0{index + 1} — {point.term}
+                  </span>
+                  <p className="text-xs text-neutral-500 leading-relaxed font-light">
+                    {point.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </section>
+
+        {/* WORKS - I miei lavori (Sezione 01) */}
+        <section id="work" className="scroll-mt-16 py-20 md:py-28 px-6 md:px-16 lg:px-20 bg-[#faf9f8] border-b border-black/[0.05]">
+          <div className="max-w-4xl mx-auto">
+            
+            {/* Intestazione della sezione */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-16 pb-4 border-b border-black/10">
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-xs text-neutral-400">01.</span>
+                <h2 className="font-sans text-lg font-bold uppercase tracking-wider text-neutral-800">
+                  I miei lavori
+                </h2>
+              </div>
+              <span className="text-[10px] font-mono tracking-wider text-neutral-400 uppercase font-medium">
+                Sotto-archivio progetti — 2025 / 2026
+              </span>
+            </div>
+
+            {/* Lista a scomparsa dei lavori */}
+            <div className="flex flex-col text-neutral-900 border-t border-black/[0.06]">
+              {works.map((work, index) => {
+                const isOpen = activeProject === index;
+                return (
+                  <div 
+                    key={work.title}
+                    className="border-b border-black/[0.06] transition-all duration-200"
+                  >
+                    {/* Barra di apertura */}
+                    <button
+                      onClick={() => setActiveProject(isOpen ? null : index)}
+                      className="w-full flex flex-col md:flex-row md:items-center justify-between text-left py-6 md:py-8 hover:bg-neutral-200/10 px-3 transition-all duration-200 focus:outline-none group"
+                    >
+                      <div className="flex items-center gap-6">
+                        <span className="font-mono text-xs text-neutral-300 group-hover:text-neutral-800 transition-colors">
+                          ({work.catalogNum})
+                        </span>
+                        <div>
+                          <h3 className="font-sans text-lg md:text-xl font-bold text-neutral-900 group-hover:text-neutral-600 transition-colors">
+                            {work.title}
+                          </h3>
+                          <span className="text-[9px] font-mono text-neutral-400 uppercase tracking-widest block mt-0.5">
+                            {work.subtitle}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between mt-3 md:mt-0 gap-8">
+                        <span className="text-[9px] font-mono uppercase tracking-wider text-neutral-400 font-light">
+                          {work.collaboration}
+                        </span>
+                        <span className="text-[9px] font-mono text-neutral-300">
+                          {work.period}
+                        </span>
+                        <div className={cn(
+                          "w-6 h-6 rounded-full border border-black/10 flex items-center justify-center transition-all duration-300 text-neutral-400 group-hover:text-neutral-900",
+                          isOpen ? "bg-neutral-900 border-neutral-900 text-white rotate-45" : "bg-transparent"
+                        )}>
+                          <ArrowUpRight size={10} />
+                        </div>
+                      </div>
+                    </button>
+
+                    {/* Dettaglio del lavoro selezionato */}
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.4, ease: "easeInOut" }}
+                          className="overflow-hidden bg-[#ffffff]"
+                        >
+                          <div className="p-6 md:p-10 border-t border-black/[0.04] grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                            
+                            {/* Dati testuali di cura editoriale */}
+                            <div className="lg:col-span-5 flex flex-col justify-between">
+                              <div>
+                                <span className="font-mono text-[9px] uppercase tracking-wider text-neutral-500 bg-neutral-100 px-2 py-0.5 rounded inline-block mb-4">
+                                  {work.subtitle}
+                                </span>
+
+                                <p className="text-xs text-neutral-600 font-light leading-relaxed mb-4">
+                                  {work.description}
+                                </p>
+
+                                <div className="border-t border-black/[0.04] pt-4 mb-4">
+                                  <h4 className="text-[9px] font-mono uppercase tracking-wider text-neutral-400 mb-1.5 font-bold">
+                                    Soluzioni di copy:
+                                  </h4>
+                                  <p className="text-xs text-neutral-500 leading-relaxed font-light">
+                                    {work.editorialAnalysis}
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div className="pt-2">
+                                <div className="flex flex-wrap gap-1 mb-4">
+                                  {work.methodology.map((m) => (
+                                    <span key={m} className="text-[8px] font-mono text-neutral-400 border border-neutral-200 px-2 py-0.5 rounded-full bg-neutral-50 uppercase font-semibold">
+                                      {m}
+                                    </span>
+                                  ))}
+                                </div>
+
+                                <a 
+                                  href={work.link} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer" 
+                                  className="inline-flex items-center gap-1.5 text-[10px] font-mono tracking-wider text-neutral-900 hover:text-neutral-500 border-b border-neutral-900 pb-0.5 transition-all duration-200 font-bold"
+                                >
+                                  VEDI IL CASO STUDIO
+                                  <ArrowUpRight size={10} />
+                                </a>
+                              </div>
+                            </div>
+
+                            {/* Anteprima visiva dal sapore neutro e professionale */}
+                            <div className="lg:col-span-7 rounded overflow-hidden border border-black/[0.04] bg-neutral-50 relative group">
+                              <img 
+                                src={work.imageUrl} 
+                                alt={work.title} 
+                                className="w-full h-auto object-cover aspect-[16/10] grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+                              />
+                            </div>
+
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="mt-8 text-center text-[11px] font-sans text-neutral-400">
+              * Seleziona un progetto per esaminare in dettaglio il processo di lavoro.
+            </div>
+
+          </div>
+        </section>
+
+        {/* SERVICES - I miei servizi (Sezione 02) */}
+        <section id="services" className="scroll-mt-16 py-20 md:py-28 px-6 md:px-16 lg:px-20 bg-brand-bg border-b border-black/[0.05]">
+          <div className="max-w-4xl mx-auto">
+            
+            <div className="flex flex-col gap-2 mb-16">
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-xs text-neutral-400">02.</span>
+                <h2 className="font-sans text-lg font-bold uppercase tracking-wider text-neutral-800">
+                  Cosa faccio
+                </h2>
+              </div>
+              <p className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest">
+                Aree di specializzazione e competenze
               </p>
             </div>
-          </motion.div>
 
-        </div>
+            {/* Struttura Geometrica Pulita in stile Svizzero */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-neutral-100 border border-neutral-200/60 rounded overflow-hidden">
+              {services.map((service) => (
+                <div 
+                  key={service.category}
+                  className="bg-white p-6 md:p-8 flex flex-col justify-between min-h-[220px]"
+                >
+                  <div>
+                    <div className="flex justify-between items-center mb-6">
+                      <span className="font-mono text-[10px] text-neutral-300">({service.num})</span>
+                      <span className="w-1 h-1 rounded-full bg-neutral-200" />
+                    </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 1 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 md:hidden z-30"
-        >
-          <a href="#about" className="flex flex-col items-center gap-2 text-black/30">
-            <span className="text-[10px] uppercase tracking-widest font-bold">Scroll</span>
-            <ArrowDown size={16} />
-          </a>
-        </motion.div>
+                    <h3 className="font-sans text-sm font-bold text-neutral-800 mb-2">
+                      {service.category}
+                    </h3>
+                    
+                    <p className="text-xs text-neutral-500 leading-relaxed font-light mb-6 font-sans">
+                      {service.summary}
+                    </p>
+                  </div>
 
-        {/* Large background text accent */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none select-none overflow-hidden">
-          <span className="font-display text-[30vw] font-black text-black/[0.02] leading-none uppercase whitespace-nowrap">
-            Selected
-          </span>
-        </div>
-      </section>
+                  <div className="border-t border-neutral-100 pt-4 mt-auto">
+                    <div className="flex flex-wrap gap-1">
+                      {service.curatedFocus.map((focus) => (
+                        <span key={focus} className="text-[9px] font-mono text-neutral-400 bg-neutral-50 px-2 py-0.5 rounded border border-black/[0.02] font-medium">
+                          {focus}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
 
-      {/* Intro Section - Chi sono */}
-      <section id="about" className="scroll-mt-20 pt-16 pb-8 md:py-32 px-6 md:px-24 relative z-10 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-12 gap-12 md:gap-24 items-start">
-            <div className="lg:col-span-8">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <div className="flex items-center gap-4 mb-8 md:mb-12">
-                  <span className="text-[10px] uppercase tracking-[0.4em] text-black/30 font-bold">About me</span>
                 </div>
-                <h2 className="font-display text-4xl sm:text-6xl md:text-8xl font-medium tracking-tight text-black mb-10 md:mb-16 leading-[1.1] md:leading-[0.9]">
-                  Progetto per le <span className="italic font-serif opacity-70 sm:text-[1.1em] lowercase">persone,</span> <br className="hidden sm:block"/>
-                  non solo per gli schermi.
-                </h2>
-                <div className="max-w-3xl text-black/50 text-sm md:text-lg leading-relaxed font-medium space-y-6">
-                  <p>
-                    Ciao, sono un designer con una forte passione per l’interazione umana. Il mio percorso è iniziato esplorando come anche il più piccolo dettaglio — un pixel, un micro-movimento — possa influenzare emozioni e percezioni.
-                  </p>
-                  <p>
-                    Credo in un design invisibile: quando funziona davvero, non si fa notare. L’utente non si ferma a pensare all’interfaccia, ma percepisce semplicemente che tutto è al posto giusto.
-                  </p>
-                </div>
-              </motion.div>
+              ))}
             </div>
+
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Works Section Heading */}
-      <section id="work" className="scroll-mt-24 pt-8 pb-16 md:py-24 px-6 md:px-24 bg-brand-surface border-t border-black/5 relative z-10 overflow-hidden">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="flex flex-col gap-4 md:gap-6 mb-8 md:mb-32">
-            <h2 className="text-[10px] uppercase tracking-[0.4em] text-black/30 font-bold">Portfolio</h2>
-            <h3 className="font-display text-6xl md:text-[12rem] font-bold tracking-tighter text-black uppercase leading-none select-none">
-              Works
-            </h3>
-          </div>
-
-          <div className="space-y-20 md:space-y-48">
-            {projects.map((project, index) => (
-              <motion.div 
-                key={project.title}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-                className="relative flex flex-col items-center text-center max-w-5xl mx-auto"
-              >
-                {/* Image */}
-                <div className="w-full mb-6 md:mb-12">
-                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="block relative aspect-[16/10] overflow-hidden rounded-sm border border-black/5 bg-brand-surface group">
-                    <motion.img 
-                      src={project.imageUrl} 
-                      alt={project.title}
-                      whileHover={{ scale: 1.03 }}
-                      transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                      className="w-full h-full object-cover grayscale-0 md:grayscale md:group-hover:grayscale-0 transition-all duration-700" 
-                    />
-                    <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </a>
-                </div>
-
-                {/* Information */}
-                <div className="flex flex-col items-center max-w-2xl px-4">
-                  <div className="flex items-center justify-center gap-4 mb-6">
-                    <span className="text-xs font-mono text-black/20">0{index + 1}</span>
-                    <h4 className="text-3xl md:text-6xl font-display font-bold uppercase tracking-tight">{project.title}</h4>
-                  </div>
-                  
-                  <p className="text-black/50 text-sm md:text-lg font-medium leading-relaxed mb-6">
-                    {project.description}
-                  </p>
-                  
-                  <div className="flex flex-wrap justify-center gap-2 mb-8">
-                    {project.tags.map(tag => (
-                      <span key={tag} className="text-[8px] md:text-[9px] uppercase tracking-widest px-4 py-1.5 border border-black/10 rounded-full text-black/40 font-bold">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] group/btn border-b border-black/20 pb-2 hover:border-black transition-colors">
-                    Explore Case Study <ArrowUpRight className="w-3 h-3 md:w-4 md:h-4 group-hover/btn:-translate-y-1 group-hover/btn:translate-x-1 transition-transform" />
-                  </a>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Expertise */}
-      <section id="expertise" className="scroll-mt-20 py-20 md:py-32 px-6 md:px-24 border-t border-black/5 relative overflow-hidden">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="flex flex-col gap-6 mb-16">
-            <h2 className="text-[10px] uppercase tracking-[0.4em] text-black/30 font-bold">Expertise</h2>
-            <h3 className="font-display text-7xl md:text-[10rem] font-bold tracking-tight text-black uppercase leading-[0.85] select-none">
-              Skills <br/>
-              <span className="italic font-serif opacity-30 text-[0.8em] lowercase">capabilities</span>
-            </h3>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-1px bg-black/10 border border-black/10">
-            {expertise.map((item, i) => (
-              <motion.div 
-                key={item.title}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 1 }}
-                className="bg-brand-bg p-8 md:p-12 group hover:bg-black transition-colors duration-500"
-              >
-                <div className="text-black group-hover:text-white mb-8 transition-colors">{item.icon}</div>
-                <h4 className="text-xs uppercase tracking-[0.2em] font-bold mb-4 text-black group-hover:text-white transition-colors">{item.title}</h4>
-                <p className="text-sm text-black/40 group-hover:text-white/60 leading-relaxed font-medium transition-colors">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-
-      </section>
-
-      {/* Footer */}
-      <footer id="contact" className="py-20 md:py-32 px-6 md:px-24 border-t border-black/5 bg-black text-white">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="flex flex-col gap-12 mb-24 md:mb-32">
-            <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/30 font-bold">Contact</h2>
+        {/* FOOTER - Minimal, Pure Dialog (Sezione 03) */}
+        <footer id="contact" className="py-20 md:py-28 px-6 md:px-16 lg:px-20 bg-neutral-950 text-neutral-100 relative overflow-hidden z-10 mt-auto">
+          <div className="max-w-4xl mx-auto relative z-10">
             
-            <a 
-              href="mailto:dmntroiani@gmail.com"
-              className="group flex flex-col items-start"
-            >
-              <span className="font-display text-4xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter leading-[0.85] text-white transition-transform duration-700 group-hover:-translate-y-2 inline-block">
-                Let's work<br />
-                <span className="text-orange-500 italic font-serif lowercase opacity-90">together</span>
-              </span>
-
-              <div className="mt-12 md:mt-24 flex items-center gap-6 md:gap-12 group-hover:gap-16 transition-all duration-700 ease-out">
-                <span className="text-xl md:text-4xl lg:text-5xl font-display font-medium tracking-tight border-b-2 md:border-b-4 border-white/10 group-hover:border-white transition-all">
-                  dmntroiani@gmail.com
+            <div className="flex flex-col gap-4 mb-16">
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-xs text-neutral-400">03.</span>
+                <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-neutral-500 font-bold">
+                  Contatti e scambi di visione
                 </span>
-                <div className="w-12 h-12 md:w-24 md:h-24 rounded-full border-2 border-white flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all duration-500">
-                  <ArrowUpRight className="w-6 h-6 md:w-12 md:h-12 group-hover:rotate-45 transition-transform" />
+              </div>
+
+              <a 
+                href="mailto:dmntroiani@gmail.com" 
+                className="group flex flex-col items-start transition-opacity"
+              >
+                <h2 className="font-sans text-2xl sm:text-4xl md:text-5xl font-light text-white select-none leading-tight tracking-tight">
+                  Iniziamo un <br />
+                  <span className="text-neutral-400 font-mono font-bold">dialogo_</span>
+                </h2>
+
+                <div className="mt-10 flex items-center gap-4 group-hover:gap-8 transition-all duration-300">
+                  <span className="text-sm sm:text-lg md:text-xl font-mono tracking-tight border-b border-white/25 group-hover:border-white text-neutral-300 group-hover:text-white pb-0.5 transition-all">
+                    dmntroiani@gmail.com
+                  </span>
+                  <div className="w-8 h-8 md:w-12 md:h-12 rounded-full border border-white/15 flex items-center justify-center group-hover:bg-white group-hover:border-white group-hover:text-neutral-900 transition-all duration-300 text-white">
+                    <ArrowRight className="w-3 md:w-4 h-3 md:h-4 group-hover:rotate-45 transition-transform" />
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            {/* Collegamenti e note legali di firma */}
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 pt-8 border-t border-white/5">
+              <div className="flex gap-6">
+                <a 
+                  href="https://www.linkedin.com/in/damianotroiani" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-[9px] font-mono uppercase tracking-widest text-neutral-500 hover:text-white transition-colors animate-pulse"
+                >
+                  LinkedIn
+                </a>
+                <a 
+                  href="/resume.pdf" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-[9px] font-mono uppercase tracking-widest text-neutral-500 hover:text-white transition-colors"
+                >
+                  Resume
+                </a>
+              </div>
+
+              <div className="text-[10px] font-mono uppercase tracking-[0.12em] text-neutral-500">
+                <div>Damiano Troiani © {new Date().getFullYear()} – Scrittore di interfacce.</div>
+                <div className="text-[8px] text-neutral-600 mt-1 uppercase leading-normal">
+                  "Autorizzo il trattamento dei dati personali (D. Lgs. 196/2003 e Regolamento UE 2016/679)"
                 </div>
               </div>
-            </a>
-          </div>
+            </div>
 
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 pt-12 border-t border-white/10">
-            <div className="flex gap-8">
-              <a href="https://www.linkedin.com/in/damianotroiani" target="_blank" rel="noopener noreferrer" className="text-[10px] uppercase tracking-widest font-bold hover:opacity-50 transition-opacity">LinkedIn</a>
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="text-[10px] uppercase tracking-widest font-bold hover:opacity-50 transition-opacity">Resume</a>
-            </div>
-            <div className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/30">
-              Damiano Troiani © {new Date().getFullYear()}
-            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+
+      </div>
+
     </div>
   );
 }
-

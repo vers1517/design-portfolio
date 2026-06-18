@@ -1,31 +1,28 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, Linkedin, FileText, Mail } from 'lucide-react';
+import { X, ArrowRight, Menu, ChevronRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { cn } from '../lib/utils';
 
 export function Navbar() {
-  const [isInitial, setIsInitial] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [visible, setVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
+  // Mobile navbar show/hide on scroll
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
-      if (currentScrollY > 100) {
-        setIsInitial(false);
-      } else {
-        setIsInitial(true);
-      }
-
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setVisible(false);
+      if (currentScrollY > 80) {
+        if (currentScrollY > lastScrollY) {
+          setVisible(false);
+        } else {
+          setVisible(true);
+        }
       } else {
         setVisible(true);
       }
-      
       setLastScrollY(currentScrollY);
     };
 
@@ -33,167 +30,224 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
-  const isExpanded = isInitial || isClicked;
-
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [mobileMenuOpen]);
+  const isExpanded = isHovered || isClicked;
 
   const navLinks = [
-    { name: 'About me', href: '#about' },
-    { name: 'Works', href: '#work' },
-    { name: 'Skills', href: '#expertise' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'I miei lavori', href: '#work', num: '01' },
+    { name: 'Cosa faccio', href: '#services', num: '02' },
+    { name: 'Scrivimi', href: '#contact', num: '03' },
   ];
 
   return (
     <>
-      {/* Desktop Sidebar */}
+      {/* LEFT SIDEBAR NAV - Desktop and Tablet */}
       <motion.nav 
         initial={false}
         animate={{ 
-          width: isExpanded ? '300px' : '80px',
+          width: isExpanded ? '260px' : '72px',
         }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         className={cn(
-          "fixed top-0 left-0 bottom-0 z-[100] hidden md:flex flex-col bg-white border-r border-black/5 transition-all duration-500 ease-in-out",
-          isClicked ? "shadow-2xl" : "shadow-none"
+          "fixed top-0 left-0 bottom-0 z-50 hidden md:flex flex-col bg-[#fcfcfb] border-r border-black/[0.06] transition-all duration-300 ease-in-out",
+          isExpanded ? "shadow-lg shadow-black/[0.02]" : ""
         )}
       >
-        {/* Brand/Logo Vertical */}
-        <div className="h-32 flex flex-col items-center justify-center relative">
-          <motion.div className="flex flex-col items-center">
-            {isExpanded ? (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="flex flex-col items-center cursor-pointer"
-                onClick={() => !isInitial && setIsClicked(false)}
-              >
-                <span className="font-display text-2xl font-black tracking-tighter uppercase text-orange-500 leading-none">DAMIANO</span>
-                <span className="text-[8px] text-black/40 uppercase tracking-[0.4em] mt-2 font-bold whitespace-nowrap">
-                  UX Content Designer
+        {/* Brand/Logo Area */}
+        <div className="h-24 flex items-center justify-center border-b border-black/[0.04]">
+          {isExpanded ? (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="px-6 w-full flex items-center justify-between"
+            >
+              <a href="#" className="flex flex-col">
+                <span className="font-sans text-base font-bold tracking-tight text-neutral-900">
+                  D. TROIANI
                 </span>
-              </motion.div>
-            ) : (
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="flex flex-col items-center cursor-pointer"
-                onClick={() => setIsClicked(true)}
+                <span className="text-[8px] font-mono tracking-widest text-neutral-400 uppercase mt-0.5">
+                  Designer di testi
+                </span>
+              </a>
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsClicked(!isClicked);
+                }}
+                className="p-1 hover:bg-neutral-100 rounded text-neutral-400 hover:text-black transition-colors"
+                title={isClicked ? "Blocca chiuso" : "Blocca aperto"}
               >
-                <span className="font-display text-4xl font-black text-orange-500">D</span>
-              </motion.div>
-            )}
-          </motion.div>
+                <div className={cn(
+                  "w-2 h-2 rounded-full transition-all", 
+                  isClicked ? "bg-emerald-500 scale-125" : "bg-neutral-300"
+                )} />
+              </button>
+            </motion.div>
+          ) : (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="flex items-center justify-center"
+            >
+              <div className="w-10 h-10 flex items-center justify-center transition-all duration-300 hover:scale-105">
+                <svg viewBox="0 0 100 80" className="w-[28px] h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path 
+                    d="M 20 15 H 52 C 72 15, 85 25, 85 40 C 85 55, 72 65, 52 65 H 20 Z M 38 32 H 52 C 57 32, 61 35, 61 40 C 61 45, 57 48, 52 48 H 38 Z" 
+                    fill="#1a1a1a" 
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </motion.div>
+          )}
         </div>
 
-        {/* Nav Links */}
-        <div className="flex-1 flex flex-col justify-center gap-2 px-4">
+        {/* Navigation center list */}
+        <div className="flex-1 flex flex-col justify-center gap-2 px-3">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
               className={cn(
-                "group flex items-center h-12 rounded-lg transition-all duration-300",
-                isExpanded ? "px-6 hover:bg-black/5" : "justify-center"
+                "group flex items-center h-12 rounded transition-all duration-200",
+                isExpanded ? "px-4 hover:bg-neutral-100" : "justify-center"
               )}
             >
               {isExpanded ? (
-                <span className="text-[11px] uppercase tracking-[0.3em] font-bold text-black transition-colors">
-                  {link.name}
-                </span>
+                <div className="flex items-center justify-between w-full">
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono text-[9px] text-neutral-300 group-hover:text-neutral-500 font-bold">
+                      [{link.num}]
+                    </span>
+                    <span className="text-xs font-sans text-neutral-600 group-hover:text-black font-medium tracking-wide">
+                      {link.name}
+                    </span>
+                  </div>
+                  <ChevronRight size={12} className="text-neutral-300 group-hover:text-neutral-900 group-hover:translate-x-0.5 transition-all" />
+                </div>
               ) : (
-                <div className="w-4 h-[1px] bg-black/20 group-hover:bg-orange-500 transition-colors" />
+                <div className="relative flex items-center justify-center">
+                  <span className="font-mono text-[10px] text-neutral-400 group-hover:text-black transition-colors">
+                    {link.num}
+                  </span>
+                  {/* Floating pure tooltip */}
+                  <div className="absolute left-10 px-3 py-1.5 rounded bg-white border border-neutral-100 text-[10px] tracking-wider font-mono text-neutral-800 opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-200 translate-x-2 group-hover:translate-x-0 whitespace-nowrap shadow-md">
+                    {link.name}
+                  </div>
+                </div>
               )}
             </a>
           ))}
         </div>
 
-        {/* Socials/Bottom */}
-        <div className="p-6 flex flex-col gap-6 items-center">
+        {/* Collapse button and contact trigger */}
+        <div className="p-4 border-t border-black/[0.04]">
           {isExpanded ? (
             <motion.div 
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex gap-8"
+              className="flex justify-between items-center"
             >
-              <a href="https://www.linkedin.com/in/damianotroiani" target="_blank" rel="noopener noreferrer" className="text-[10px] uppercase font-bold tracking-widest text-black/30 hover:text-black transition-colors">
-                LinkedIn
+              <a 
+                href="#contact" 
+                className="text-[10px] font-mono text-neutral-400 hover:text-black uppercase tracking-wider transition-colors"
+              >
+                Parliamo? →
               </a>
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="text-[10px] uppercase font-bold tracking-widest text-black/30 hover:text-black transition-colors">
-                Resume
-              </a>
+              <span className="text-[9px] font-mono text-neutral-300">© 2026</span>
             </motion.div>
-          ) : null}
+          ) : (
+            <div className="flex justify-center">
+              <div className="w-1.5 h-1.5 rounded-full bg-neutral-300" />
+            </div>
+          )}
         </div>
       </motion.nav>
 
-      {/* Mobile Top Bar & Menu Toggle */}
+      {/* MOBILE TOP BAR (visible on screens <= md) */}
       <motion.div 
-        animate={{ y: visible ? 0 : -100 }}
+        animate={{ y: visible ? 0 : -80 }}
         transition={{ duration: 0.3 }}
-        className="md:hidden fixed top-0 left-0 right-0 h-20 px-6 flex items-center justify-between z-[100] bg-white/80 backdrop-blur-md border-b border-black/5"
+        className="md:hidden fixed top-0 left-0 right-0 h-16 px-6 flex items-center justify-between z-40 bg-[#fcfcfb]/90 backdrop-blur-md border-b border-black/[0.05]"
       >
-        <span className="font-display text-2xl font-black text-orange-500">D</span>
+        <span className="font-sans text-sm font-bold tracking-tight text-neutral-900">
+          DAMIANO TROIANI
+        </span>
         <button 
-          className="p-2 text-orange-500"
           onClick={() => setMobileMenuOpen(true)}
+          className="p-1.5 hover:bg-neutral-100 rounded text-neutral-800 focus:outline-none transition-colors"
+          aria-label="Apri menu"
         >
-          <div className="flex flex-col gap-1.5 w-6">
-            <div className="h-[2px] w-full bg-current" />
-            <div className="h-[2px] w-full bg-current" />
-          </div>
+          <Menu size={20} />
         </button>
       </motion.div>
 
-      {/* Mobile Menu Overlay */}
+      {/* MOBILE MENU FULL OVERLAY */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-white z-[120] flex flex-col md:hidden"
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-[#fcfcfb] z-50 flex flex-col md:hidden"
           >
-            <div className="flex justify-between items-center p-6">
-              <span className="font-display text-xl font-black tracking-tighter uppercase text-orange-500">DAMIANO</span>
+            {/* Top Bar inside overlay */}
+            <div className="flex justify-between items-center p-6 border-b border-black/[0.05] h-16">
+              <span className="font-sans text-sm font-bold tracking-tight text-neutral-900">
+                DAMIANO TROIANI
+              </span>
               <button 
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-2 text-black hover:bg-black/5 rounded-full"
+                className="p-1.5 text-neutral-800 hover:bg-neutral-100 rounded-full transition-colors focus:outline-none"
               >
-                <X size={32} />
+                <X size={20} />
               </button>
             </div>
 
-            <div className="flex-1 flex flex-col justify-center p-8 gap-8">
+            {/* Menu Links */}
+            <div className="flex-1 flex flex-col justify-center px-8 gap-8">
               {navLinks.map((link, i) => (
                 <motion.a 
                   key={link.name} 
                   href={link.href}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -15 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
+                  transition={{ delay: i * 0.05, ease: "easeOut" }}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-5xl font-display font-bold text-black uppercase tracking-tighter hover:text-orange-500 transition-colors"
+                  className="text-2xl font-sans font-light text-neutral-800 hover:text-black transition-colors flex items-baseline gap-4"
                 >
-                  {link.name}
+                  <span className="font-mono text-xs text-neutral-300">0{i+1}.</span>
+                  <span>{link.name}</span>
                 </motion.a>
               ))}
             </div>
 
-            <div className="p-8 border-t border-black/10">
-              <p className="text-[10px] uppercase tracking-[0.4em] text-black/30 font-bold mb-4">Get in touch</p>
-              <a href="mailto:dmntroiani@gmail.com" className="text-xl font-bold text-black">dmntroiani@gmail.com</a>
-              <div className="flex gap-6 mt-8">
-                <a href="https://www.linkedin.com/in/damianotroiani" target="_blank" rel="noopener noreferrer" className="text-[10px] text-black/40 uppercase tracking-widest font-bold">LinkedIn</a>
-                <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="text-[10px] text-black/40 uppercase tracking-widest font-bold">Resume</a>
+            {/* Footer on Mobile Overlay */}
+            <div className="p-8 border-t border-black/[0.05] bg-neutral-50/50 flex flex-col gap-4">
+              <span className="font-mono text-[9px] uppercase tracking-wider text-neutral-400 font-semibold">
+                Contatto Diretto
+              </span>
+              <a href="mailto:dmntroiani@gmail.com" className="text-base text-neutral-800 hover:text-black transition-all">
+                dmntroiani@gmail.com
+              </a>
+              <div className="flex gap-6 mt-2">
+                <a 
+                  href="https://www.linkedin.com/in/damianotroiani" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-[10px] text-neutral-400 uppercase tracking-widest font-mono hover:text-black transition-colors"
+                >
+                  LinkedIn
+                </a>
+                <a 
+                  href="/resume.pdf" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-[10px] text-neutral-400 uppercase tracking-widest font-mono hover:text-black transition-colors"
+                >
+                  Resume
+                </a>
               </div>
             </div>
           </motion.div>
