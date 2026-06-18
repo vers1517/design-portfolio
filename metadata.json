@@ -2,5 +2,5 @@
   "name": "Damiano Troiani | Design Portfolio",
   "description": "Portfolio professionale di Damiano Troiani. Progettazione di prodotti digitali, UX/UI e soluzioni creative.",
   "requestFramePermissions": [],
-  "majorCapabilities": []
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
