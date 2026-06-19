@@ -170,11 +170,16 @@ export function Navbar({ isFooterVisible = false }: NavbarProps) {
       </motion.nav>
 
       {/* MOBILE LEFT BAR */}
-      <div 
-        className={cn(
-          "md:hidden fixed top-0 left-0 bottom-0 w-16 py-8 flex flex-col items-center justify-between z-40 bg-[#fcfcfb]/95 backdrop-blur-md border-r border-black/[0.05] transition-transform duration-500 ease-in-out",
-          isFooterVisible ? "-translate-x-full" : "translate-x-0"
-        )}
+      <motion.div 
+        animate={{
+          x: isFooterVisible ? "-100%" : "0%"
+        }}
+        transition={{
+          type: "spring",
+          damping: 26,
+          stiffness: 170
+        }}
+        className="md:hidden fixed top-0 left-0 bottom-0 w-16 py-8 flex flex-col items-center justify-between z-40 bg-[#fcfcfb]/95 backdrop-blur-md border-r border-black/[0.05]"
       >
         <button 
           onClick={() => setMobileMenuOpen(true)}
@@ -190,7 +195,7 @@ export function Navbar({ isFooterVisible = false }: NavbarProps) {
           </svg>
         </button>
         
-        {/* Centered Three Dots Menu Button with scendere animation */}
+        {/* Centered Three Dots Menu Button with dynamic animation */}
         <motion.button 
           onClick={() => setMobileMenuOpen(true)}
           animate={{ 
@@ -211,7 +216,7 @@ export function Navbar({ isFooterVisible = false }: NavbarProps) {
         <div className="w-8 h-8 flex items-center justify-center">
           <span className="w-1 h-1 rounded-full bg-neutral-200" />
         </div>
-      </div>
+      </motion.div>
 
       {/* FLOATING BACK TO TOP MOBILE BUTTON */}
       <AnimatePresence>
@@ -294,7 +299,7 @@ export function Navbar({ isFooterVisible = false }: NavbarProps) {
                   href="https://www.linkedin.com/in/damianotroiani" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="text-[10px] text-neutral-400 uppercase tracking-widest font-mono hover:text-black transition-colors"
+                  className="text-[10px] text-brand-accent uppercase tracking-widest font-mono hover:text-black transition-colors font-bold"
                 >
                   LinkedIn
                 </a>
@@ -302,7 +307,7 @@ export function Navbar({ isFooterVisible = false }: NavbarProps) {
                   href="/resume.pdf" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="text-[10px] text-neutral-400 uppercase tracking-widest font-mono hover:text-black transition-colors"
+                  className="text-[10px] text-brand-accent uppercase tracking-widest font-mono hover:text-black transition-colors font-bold"
                 >
                   Resume
                 </a>

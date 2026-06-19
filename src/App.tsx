@@ -455,6 +455,9 @@ export default function App() {
                   <span className="text-sm sm:text-lg md:text-xl font-mono tracking-tight border-b border-white md:border-white/25 md:group-hover:border-white text-white md:text-neutral-300 md:group-hover:text-white pb-0.5 transition-all">
                     dmntroiani@gmail.com
                   </span>
+                  <div className="hidden md:flex w-12 h-12 rounded-full border border-white/15 text-white group-hover:bg-white group-hover:border-white group-hover:text-neutral-900 items-center justify-center transition-all duration-300">
+                    <ArrowRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
+                  </div>
                 </div>
               </a>
             </div>
@@ -466,7 +469,7 @@ export default function App() {
                   href="https://www.linkedin.com/in/damianotroiani" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="text-[9px] font-mono uppercase tracking-widest text-neutral-500 hover:text-white transition-colors animate-pulse"
+                  className="text-[9px] font-mono uppercase tracking-widest text-brand-accent hover:text-white transition-colors font-bold"
                 >
                   LinkedIn
                 </a>
@@ -474,13 +477,13 @@ export default function App() {
                   href="/resume.pdf" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="text-[9px] font-mono uppercase tracking-widest text-neutral-500 hover:text-white transition-colors"
+                  className="text-[9px] font-mono uppercase tracking-widest text-brand-accent hover:text-white transition-colors font-bold"
                 >
                   Resume
                 </a>
                 <a 
                   href="#" 
-                  className="text-[9px] font-mono uppercase tracking-widest text-neutral-400 hover:text-brand-accent transition-colors flex items-center gap-1.5 ml-2 border-l border-white/10 pl-6 group"
+                  className="hidden md:flex text-[9px] font-mono uppercase tracking-widest text-neutral-400 hover:text-brand-accent transition-colors items-center gap-1.5 ml-2 border-l border-white/10 pl-6 group"
                   aria-label="Torna all'inizio della pagina"
                 >
                   <span>Torna su</span>
