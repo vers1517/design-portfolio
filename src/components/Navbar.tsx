@@ -1,9 +1,13 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { X, ArrowRight, Menu, ChevronRight } from 'lucide-react';
+import { X, ArrowRight, Menu, ChevronRight, ArrowUp } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { cn } from '../lib/utils';
 
-export function Navbar() {
+interface NavbarProps {
+  isFooterVisible?: boolean;
+}
+
+export function Navbar({ isFooterVisible = false }: NavbarProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -167,7 +171,10 @@ export function Navbar() {
 
       {/* MOBILE LEFT BAR */}
       <div 
-        className="md:hidden fixed top-0 left-0 bottom-0 w-16 py-8 flex flex-col items-center justify-between z-40 bg-[#fcfcfb]/95 backdrop-blur-md border-r border-black/[0.05]"
+        className={cn(
+          "md:hidden fixed top-0 left-0 bottom-0 w-16 py-8 flex flex-col items-center justify-between z-40 bg-[#fcfcfb]/95 backdrop-blur-md border-r border-black/[0.05] transition-transform duration-500 ease-in-out",
+          isFooterVisible ? "-translate-x-full" : "translate-x-0"
+        )}
       >
         <button 
           onClick={() => setMobileMenuOpen(true)}
@@ -183,22 +190,48 @@ export function Navbar() {
           </svg>
         </button>
         
-        {/* Centered Three Dots Menu Button */}
-        <button 
+        {/* Centered Three Dots Menu Button with scendere animation */}
+        <motion.button 
           onClick={() => setMobileMenuOpen(true)}
+          animate={{ 
+            y: isFooterVisible ? 100 : 0,
+            opacity: isFooterVisible ? 0 : 1,
+            scale: isFooterVisible ? 0.3 : 1
+          }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="p-3 hover:bg-neutral-50 rounded text-neutral-400 hover:text-neutral-700 focus:outline-none transition-colors active:scale-95 flex flex-col gap-1 items-center justify-center"
           aria-label="Apri menu"
         >
           <span className="w-1 h-1 rounded-full bg-neutral-400 block" />
           <span className="w-1 h-1 rounded-full bg-neutral-400 block" />
           <span className="w-1 h-1 rounded-full bg-neutral-400 block" />
-        </button>
+        </motion.button>
 
         {/* Balanced spacing block at the bottom */}
         <div className="w-8 h-8 flex items-center justify-center">
           <span className="w-1 h-1 rounded-full bg-neutral-200" />
         </div>
       </div>
+
+      {/* FLOATING BACK TO TOP MOBILE BUTTON */}
+      <AnimatePresence>
+        {isFooterVisible && (
+          <motion.button
+            key="back-to-top"
+            initial={{ opacity: 0, y: 50, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.7 }}
+            transition={{ type: 'spring', damping: 15, stiffness: 180 }}
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="md:hidden fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-white border border-black/[0.08] text-neutral-900 flex items-center justify-center shadow-lg active:scale-95 hover:bg-neutral-50 focus:outline-none focus:ring-1 focus:ring-brand-accent transition-colors"
+            aria-label="Torna all'inizio della pagina"
+          >
+            <ArrowUp size={18} className="text-neutral-900" />
+          </motion.button>
+        )}
+      </AnimatePresence>
 
       {/* MOBILE MENU FULL OVERLAY */}
       <AnimatePresence>

@@ -12,6 +12,7 @@ import { Navbar } from './components/Navbar';
 export default function App() {
   const [activeProject, setActiveProject] = useState<number | null>(0);
   const [time, setTime] = useState('');
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
 
   // Sincronizza l'orologio dell'interfaccia
   useEffect(() => {
@@ -28,6 +29,28 @@ export default function App() {
     updateTime();
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
+  }, []);
+
+  // Observer per nascondere il menu e allargare il footer su mobile
+  useEffect(() => {
+    const footerElement = document.getElementById('contact');
+    if (!footerElement) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsFooterVisible(entry.isIntersecting);
+      },
+      {
+        root: null,
+        rootMargin: '0px 0px -50px 0px', // Trigger precisely when the footer begins invading layout
+        threshold: 0.1
+      }
+    );
+
+    observer.observe(footerElement);
+    return () => {
+      observer.unobserve(footerElement);
+    };
   }, []);
 
   // Manifesto di design con alta leggibilità (indice Gulpease > 80)
@@ -116,10 +139,13 @@ export default function App() {
     <div className="min-h-screen bg-brand-bg text-brand-text font-sans selection:bg-neutral-900 selection:text-neutral-100 transition-all duration-300">
       
       {/* Barra laterale sinistra richidibile per desktop ed overlay responsive */}
-      <Navbar />
+      <Navbar isFooterVisible={isFooterVisible} />
 
       {/* Area principale del contenuto */}
-      <div className="pl-16 md:pl-[72px] min-h-screen flex flex-col transition-all duration-300">
+      <div className={cn(
+        "min-h-screen flex flex-col transition-all duration-500 ease-in-out",
+        isFooterVisible ? "pl-0 md:pl-[72px]" : "pl-16 md:pl-[72px]"
+      )}>
         
         {/* HERO - Il mio Manifesto di Progettazione */}
         <section className="relative px-6 md:px-16 lg:px-20 pt-16 md:pt-36 pb-12 md:pb-28 border-b border-black/[0.05]">
@@ -429,9 +455,6 @@ export default function App() {
                   <span className="text-sm sm:text-lg md:text-xl font-mono tracking-tight border-b border-white md:border-white/25 md:group-hover:border-white text-white md:text-neutral-300 md:group-hover:text-white pb-0.5 transition-all">
                     dmntroiani@gmail.com
                   </span>
-                  <div className="w-8 h-8 md:w-12 md:h-12 rounded-full border bg-white border-white text-neutral-900 md:bg-transparent md:border-white/15 md:text-white md:group-hover:bg-white md:group-hover:border-white md:group-hover:text-neutral-900 flex items-center justify-center transition-all duration-300">
-                    <ArrowRight className="w-4 h-4 md:w-5 md:h-5 md:group-hover:rotate-45 transition-transform" />
-                  </div>
                 </div>
               </a>
             </div>
