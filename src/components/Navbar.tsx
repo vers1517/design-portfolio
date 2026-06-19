@@ -61,13 +61,14 @@ export function Navbar() {
               animate={{ opacity: 1 }}
               className="px-6 w-full flex items-center justify-between"
             >
-              <a href="#" className="flex flex-col">
-                <span className="font-sans text-base font-bold tracking-tight text-neutral-900">
-                  D. TROIANI
-                </span>
-                <span className="text-[8px] font-mono tracking-widest text-neutral-400 uppercase mt-0.5">
-                  UX WRITER | UX DESIGNER
-                </span>
+              <a href="#" className="flex items-center" aria-label="Home">
+                <svg viewBox="0 0 100 80" className="w-[28px] h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path 
+                    d="M 20 15 H 52 C 72 15, 85 25, 85 40 C 85 55, 72 65, 52 65 H 20 Z M 38 32 H 52 C 57 32, 61 35, 61 40 C 61 45, 57 48, 52 48 H 38 Z" 
+                    fill="#1a1a1a" 
+                    fillRule="evenodd"
+                  />
+                </svg>
               </a>
               <button 
                 onClick={(e) => {
@@ -164,56 +165,80 @@ export function Navbar() {
         </div>
       </motion.nav>
 
-      {/* MOBILE TOP BAR (visible on screens <= md) */}
-      <motion.div 
-        animate={{ y: visible ? 0 : -80 }}
-        transition={{ duration: 0.3 }}
-        className="md:hidden fixed top-0 left-0 right-0 h-16 px-6 flex items-center justify-between z-40 bg-[#fcfcfb]/90 backdrop-blur-md border-b border-black/[0.05]"
+      {/* MOBILE LEFT BAR */}
+      <div 
+        className="md:hidden fixed top-0 left-0 bottom-0 w-16 py-8 flex flex-col items-center justify-between z-40 bg-[#fcfcfb]/95 backdrop-blur-md border-r border-black/[0.05]"
       >
-        <span className="font-sans text-sm font-bold tracking-tight text-neutral-900">
-          DAMIANO TROIANI
-        </span>
         <button 
           onClick={() => setMobileMenuOpen(true)}
-          className="p-1.5 hover:bg-neutral-100 rounded text-neutral-800 focus:outline-none transition-colors"
+          className="flex items-center justify-center p-2 rounded hover:bg-neutral-100 transition-all focus:outline-none" 
           aria-label="Apri menu"
         >
-          <Menu size={20} />
+          <svg viewBox="0 0 100 80" className="w-[28px] h-auto active:scale-90 transition-transform" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path 
+              d="M 20 15 H 52 C 72 15, 85 25, 85 40 C 85 55, 72 65, 52 65 H 20 Z M 38 32 H 52 C 57 32, 61 35, 61 40 C 61 45, 57 48, 52 48 H 38 Z" 
+              fill="#1a1a1a" 
+              fillRule="evenodd"
+            />
+          </svg>
         </button>
-      </motion.div>
+        
+        {/* Centered Three Dots Menu Button */}
+        <button 
+          onClick={() => setMobileMenuOpen(true)}
+          className="p-3 hover:bg-neutral-50 rounded text-neutral-400 hover:text-neutral-700 focus:outline-none transition-colors active:scale-95 flex flex-col gap-1 items-center justify-center"
+          aria-label="Apri menu"
+        >
+          <span className="w-1 h-1 rounded-full bg-neutral-400 block" />
+          <span className="w-1 h-1 rounded-full bg-neutral-400 block" />
+          <span className="w-1 h-1 rounded-full bg-neutral-400 block" />
+        </button>
+
+        {/* Balanced spacing block at the bottom */}
+        <div className="w-8 h-8 flex items-center justify-center">
+          <span className="w-1 h-1 rounded-full bg-neutral-200" />
+        </div>
+      </div>
 
       {/* MOBILE MENU FULL OVERLAY */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-[#fcfcfb] z-50 flex flex-col md:hidden"
+            initial={{ x: '-100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '-100%' }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 bg-[#fcfcfb] z-50 flex flex-col md:hidden shadow-2xl"
           >
             {/* Top Bar inside overlay */}
             <div className="flex justify-between items-center p-6 border-b border-black/[0.05] h-16">
-              <span className="font-sans text-sm font-bold tracking-tight text-neutral-900">
-                DAMIANO TROIANI
-              </span>
+              <div className="flex items-center">
+                <svg viewBox="0 0 100 80" className="w-[28px] h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path 
+                    d="M 20 15 H 52 C 72 15, 85 25, 85 40 C 85 55, 72 65, 52 65 H 20 Z M 38 32 H 52 C 57 32, 61 35, 61 40 C 61 45, 57 48, 52 48 H 38 Z" 
+                    fill="#1a1a1a" 
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </div>
               <button 
                 onClick={() => setMobileMenuOpen(false)}
                 className="p-1.5 text-neutral-800 hover:bg-neutral-100 rounded-full transition-colors focus:outline-none"
+                aria-label="Chiudi menu"
               >
                 <X size={20} />
               </button>
             </div>
 
             {/* Menu Links */}
-            <div className="flex-1 flex flex-col justify-center px-8 gap-8">
+            <div className="flex-1 flex flex-col justify-center px-12 gap-8">
               {navLinks.map((link, i) => (
                 <motion.a 
                   key={link.name} 
                   href={link.href}
-                  initial={{ opacity: 0, x: -15 }}
+                  initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05, ease: "easeOut" }}
+                  transition={{ delay: i * 0.08, ease: "easeOut" }}
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-2xl font-sans font-light text-neutral-800 hover:text-black transition-colors flex items-baseline gap-4"
                 >
@@ -224,7 +249,7 @@ export function Navbar() {
             </div>
 
             {/* Footer on Mobile Overlay */}
-            <div className="p-8 border-t border-black/[0.05] bg-neutral-50/50 flex flex-col gap-4">
+            <div className="p-12 border-t border-black/[0.05] bg-neutral-50/50 flex flex-col gap-4">
               <span className="font-mono text-[9px] uppercase tracking-wider text-neutral-400 font-semibold">
                 Contatto Diretto
               </span>

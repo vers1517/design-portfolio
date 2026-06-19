@@ -10,6 +10,7 @@
   --color-brand-text: #1a1a1a; /* Elegant soft charcoal */
   --color-brand-muted: #6b6b6b;
   --color-brand-border: rgba(0, 0, 0, 0.05);
+  --color-brand-accent: #FF9429;
 }
 
 @layer base {
@@ -17,7 +18,7 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-brand-bg text-brand-text antialiased selection:bg-neutral-900 selection:text-neutral-100;
+    @apply bg-brand-bg text-brand-text antialiased selection:bg-brand-accent/20 selection:text-neutral-900;
   }
 }
 

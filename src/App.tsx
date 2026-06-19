@@ -3,7 +3,9 @@ import { useState, useEffect } from 'react';
 import { cn } from './lib/utils';
 import { 
   ArrowUpRight, 
-  ArrowRight
+  ArrowRight,
+  ArrowDown,
+  ArrowUp
 } from 'lucide-react';
 import { Navbar } from './components/Navbar';
 
@@ -117,10 +119,10 @@ export default function App() {
       <Navbar />
 
       {/* Area principale del contenuto */}
-      <div className="md:pl-[72px] min-h-screen flex flex-col transition-all duration-300">
+      <div className="pl-16 md:pl-[72px] min-h-screen flex flex-col transition-all duration-300">
         
         {/* HERO - Il mio Manifesto di Progettazione */}
-        <section className="relative px-6 md:px-16 lg:px-20 pt-28 md:pt-36 pb-20 md:pb-28 border-b border-black/[0.05]">
+        <section className="relative px-6 md:px-16 lg:px-20 pt-16 md:pt-36 pb-12 md:pb-28 border-b border-black/[0.05]">
           <div className="max-w-4xl mx-auto flex flex-col justify-between min-h-[40vh]">
             
             {/* Fascia superiore di tracciamento */}
@@ -139,7 +141,7 @@ export default function App() {
             {/* Titolo Principale in Helvetica Moderno ed Elegante */}
             <div className="my-6">
               <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest block mb-4">
-                [ UX Writer · UX Designer · Conversational AI ]
+                [ UX Writer <span className="text-brand-accent font-bold">·</span> UX Designer <span className="text-brand-accent font-bold">·</span> Conversational AI ]
               </span>
               <h1 className="font-sans text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.15] text-neutral-900 tracking-tight">
                 Disegno testi, flussi e dialoghi intelligenti. <br />
@@ -162,17 +164,31 @@ export default function App() {
               ))}
             </div>
 
+            {/* Navigatore / Indicatori di scorrimento (Accessibilità) */}
+            <div className="flex justify-center mt-12 md:mt-16">
+              <a 
+                href="#work" 
+                className="group flex flex-col items-center gap-2.5 text-[9px] font-mono uppercase tracking-[0.2em] text-neutral-400 hover:text-neutral-900 transition-colors focus:outline-none"
+                aria-label="Scorri ai progetti di lavoro"
+              >
+                <span className="font-semibold">01<span className="text-brand-accent font-bold">.</span> I miei lavori</span>
+                <div className="w-8 h-8 rounded-full border border-black/[0.06] flex items-center justify-center bg-white shadow-[0_1px_3px_rgba(0,0,0,0.02)] transition-all duration-300 group-hover:translate-y-0.5 group-hover:border-brand-accent/30">
+                  <ArrowDown size={12} className="text-brand-accent" />
+                </div>
+              </a>
+            </div>
+
           </div>
         </section>
 
         {/* WORKS - I miei lavori (Sezione 01) */}
-        <section id="work" className="scroll-mt-16 py-20 md:py-28 px-6 md:px-16 lg:px-20 bg-[#faf9f8] border-b border-black/[0.05]">
+        <section id="work" className="scroll-mt-16 py-12 md:py-28 px-6 md:px-16 lg:px-20 bg-[#faf9f8] border-b border-black/[0.05]">
           <div className="max-w-4xl mx-auto">
             
             {/* Intestazione della sezione */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-16 pb-4 border-b border-black/10">
               <div className="flex items-center gap-2">
-                <span className="font-mono text-xs text-neutral-400">01.</span>
+                <span className="font-mono text-xs text-neutral-400">01<span className="text-brand-accent font-bold">.</span></span>
                 <h2 className="font-sans text-lg font-bold uppercase tracking-wider text-neutral-800">
                   I miei lavori
                 </h2>
@@ -218,8 +234,8 @@ export default function App() {
                           {work.period}
                         </span>
                         <div className={cn(
-                          "w-6 h-6 rounded-full border border-black/10 flex items-center justify-center transition-all duration-300 text-neutral-400 group-hover:text-neutral-900",
-                          isOpen ? "bg-neutral-900 border-neutral-900 text-white rotate-45" : "bg-transparent"
+                          "w-6 h-6 rounded-full border border-black/10 flex items-center justify-center transition-all duration-300 text-neutral-400 group-hover:text-brand-accent group-hover:border-brand-accent/40",
+                          isOpen ? "bg-brand-accent border-brand-accent text-white rotate-45" : "bg-transparent"
                         )}>
                           <ArrowUpRight size={10} />
                         </div>
@@ -272,10 +288,10 @@ export default function App() {
                                   href={work.link} 
                                   target="_blank" 
                                   rel="noopener noreferrer" 
-                                  className="inline-flex items-center gap-1.5 text-[10px] font-mono tracking-wider text-neutral-900 hover:text-neutral-500 border-b border-neutral-900 pb-0.5 transition-all duration-200 font-bold"
+                                  className="inline-flex items-center gap-1.5 text-[10px] font-mono tracking-wider text-neutral-900 hover:text-brand-accent border-b border-brand-accent pb-0.5 transition-all duration-200 font-bold"
                                 >
                                   VEDI IL CASO STUDIO
-                                  <ArrowUpRight size={10} />
+                                  <ArrowUpRight size={10} className="text-brand-accent" />
                                 </a>
                               </div>
                             </div>
@@ -285,7 +301,7 @@ export default function App() {
                               <img 
                                 src={work.imageUrl} 
                                 alt={work.title} 
-                                className="w-full h-auto object-cover aspect-[16/10] grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+                                className="w-full h-auto object-cover aspect-[16/10] grayscale-0 opacity-100 md:grayscale md:opacity-90 md:group-hover:grayscale-0 md:group-hover:opacity-100 transition-all duration-300"
                               />
                             </div>
 
@@ -302,16 +318,30 @@ export default function App() {
               * Seleziona un progetto per esaminare in dettaglio il processo di lavoro.
             </div>
 
+            {/* Navigatore / Indicatori di scorrimento (Accessibilità) */}
+            <div className="flex justify-center mt-14 pt-8 border-t border-black/[0.04]">
+              <a 
+                href="#services" 
+                className="group flex flex-col items-center gap-2.5 text-[9px] font-mono uppercase tracking-[0.2em] text-neutral-400 hover:text-neutral-900 transition-colors focus:outline-none"
+                aria-label="Scorri alla sezione servizio/competenze"
+              >
+                <span className="font-semibold">02<span className="text-brand-accent font-bold">.</span> Cosa faccio</span>
+                <div className="w-8 h-8 rounded-full border border-black/[0.06] flex items-center justify-center bg-white shadow-[0_1px_3px_rgba(0,0,0,0.02)] transition-all duration-300 group-hover:translate-y-0.5 group-hover:border-brand-accent/30">
+                  <ArrowDown size={12} className="text-brand-accent" />
+                </div>
+              </a>
+            </div>
+
           </div>
         </section>
 
         {/* SERVICES - I miei servizi (Sezione 02) */}
-        <section id="services" className="scroll-mt-16 py-20 md:py-28 px-6 md:px-16 lg:px-20 bg-brand-bg border-b border-black/[0.05]">
+        <section id="services" className="scroll-mt-16 py-12 md:py-28 px-6 md:px-16 lg:px-20 bg-brand-bg border-b border-black/[0.05]">
           <div className="max-w-4xl mx-auto">
             
             <div className="flex flex-col gap-2 mb-16">
               <div className="flex items-center gap-2">
-                <span className="font-mono text-xs text-neutral-400">02.</span>
+                <span className="font-mono text-xs text-neutral-400">02<span className="text-brand-accent font-bold">.</span></span>
                 <h2 className="font-sans text-lg font-bold uppercase tracking-wider text-neutral-800">
                   Cosa faccio
                 </h2>
@@ -357,16 +387,30 @@ export default function App() {
               ))}
             </div>
 
+            {/* Navigatore / Indicatori di scorrimento (Accessibilità) */}
+            <div className="flex justify-center mt-14 pt-8 border-t border-black/[0.04]">
+              <a 
+                href="#contact" 
+                className="group flex flex-col items-center gap-2.5 text-[9px] font-mono uppercase tracking-[0.2em] text-neutral-400 hover:text-neutral-900 transition-colors focus:outline-none"
+                aria-label="Scorri ai contatti"
+              >
+                <span className="font-semibold">03<span className="text-brand-accent font-bold">.</span> Mettiti in contatto</span>
+                <div className="w-8 h-8 rounded-full border border-black/[0.06] flex items-center justify-center bg-white shadow-[0_1px_3px_rgba(0,0,0,0.02)] transition-all duration-300 group-hover:translate-y-0.5 group-hover:border-brand-accent/30">
+                  <ArrowDown size={12} className="text-brand-accent" />
+                </div>
+              </a>
+            </div>
+
           </div>
         </section>
 
         {/* FOOTER - Minimal, Pure Dialog (Sezione 03) */}
-        <footer id="contact" className="py-20 md:py-28 px-6 md:px-16 lg:px-20 bg-neutral-950 text-neutral-100 relative overflow-hidden z-10 mt-auto">
+        <footer id="contact" className="py-12 md:py-28 px-6 md:px-16 lg:px-20 bg-neutral-950 text-neutral-100 relative overflow-hidden z-10 mt-auto">
           <div className="max-w-4xl mx-auto relative z-10">
             
             <div className="flex flex-col gap-4 mb-16">
               <div className="flex items-center gap-2">
-                <span className="font-mono text-xs text-neutral-400">03.</span>
+                <span className="font-mono text-xs text-neutral-400">03<span className="text-brand-accent font-bold">.</span></span>
                 <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-neutral-500 font-bold">
                   Contatti e scambi di visione
                 </span>
@@ -378,15 +422,15 @@ export default function App() {
               >
                 <h2 className="font-sans text-2xl sm:text-4xl md:text-5xl font-light text-white select-none leading-tight tracking-tight">
                   Iniziamo un <br />
-                  <span className="text-neutral-400 font-mono font-bold">dialogo_</span>
+                  <span className="text-neutral-400 font-mono font-bold">dialogo</span><span className="text-brand-accent font-mono font-bold">_</span>
                 </h2>
 
-                <div className="mt-10 flex items-center gap-4 group-hover:gap-8 transition-all duration-300">
-                  <span className="text-sm sm:text-lg md:text-xl font-mono tracking-tight border-b border-white/25 group-hover:border-white text-neutral-300 group-hover:text-white pb-0.5 transition-all">
+                <div className="mt-10 flex items-center gap-4 md:group-hover:gap-8 transition-all duration-300">
+                  <span className="text-sm sm:text-lg md:text-xl font-mono tracking-tight border-b border-white md:border-white/25 md:group-hover:border-white text-white md:text-neutral-300 md:group-hover:text-white pb-0.5 transition-all">
                     dmntroiani@gmail.com
                   </span>
-                  <div className="w-8 h-8 md:w-12 md:h-12 rounded-full border border-white/15 flex items-center justify-center group-hover:bg-white group-hover:border-white group-hover:text-neutral-900 transition-all duration-300 text-white">
-                    <ArrowRight className="w-3 md:w-4 h-3 md:h-4 group-hover:rotate-45 transition-transform" />
+                  <div className="w-8 h-8 md:w-12 md:h-12 rounded-full border bg-white border-white text-neutral-900 md:bg-transparent md:border-white/15 md:text-white md:group-hover:bg-white md:group-hover:border-white md:group-hover:text-neutral-900 flex items-center justify-center transition-all duration-300">
+                    <ArrowRight className="w-4 h-4 md:w-5 md:h-5 md:group-hover:rotate-45 transition-transform" />
                   </div>
                 </div>
               </a>
@@ -394,7 +438,7 @@ export default function App() {
 
             {/* Collegamenti e note legali di firma */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 pt-8 border-t border-white/5">
-              <div className="flex gap-6">
+              <div className="flex gap-6 items-center">
                 <a 
                   href="https://www.linkedin.com/in/damianotroiani" 
                   target="_blank" 
@@ -410,6 +454,14 @@ export default function App() {
                   className="text-[9px] font-mono uppercase tracking-widest text-neutral-500 hover:text-white transition-colors"
                 >
                   Resume
+                </a>
+                <a 
+                  href="#" 
+                  className="text-[9px] font-mono uppercase tracking-widest text-neutral-400 hover:text-brand-accent transition-colors flex items-center gap-1.5 ml-2 border-l border-white/10 pl-6 group"
+                  aria-label="Torna all'inizio della pagina"
+                >
+                  <span>Torna su</span>
+                  <ArrowUp size={11} className="text-brand-accent transition-transform duration-300 group-hover:-translate-y-0.5" />
                 </a>
               </div>
 
