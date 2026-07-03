@@ -154,35 +154,44 @@ export default function App() {
             {/* Fascia superiore di tracciamento */}
             <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-black/[0.04] mb-12">
               <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-neutral-400">
+                <span className="w-1.5 h-1.5 bg-brand-accent animate-pulse" />
+                <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-neutral-400 font-bold">
                   Il mio portfolio
                 </span>
               </div>
-              <div className="text-[10px] font-mono tracking-[0.15em] text-neutral-400 uppercase">
-                Roma / <span className="text-neutral-900 font-medium">{time}</span>
+              <div className="text-[10px] font-mono tracking-[0.15em] text-neutral-400 uppercase font-bold">
+                Roma / <span className="text-neutral-900 font-semibold">{time}</span>
               </div>
             </div>
 
             {/* Titolo Principale in Helvetica Moderno ed Elegante */}
             <div className="my-6">
-              <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest block mb-4">
+              <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest block mb-4 font-bold">
                 [ UX Writer <span className="text-brand-accent font-bold">·</span> UX Designer <span className="text-brand-accent font-bold">·</span> Conversational AI ]
               </span>
-              <h1 className="font-sans text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.15] text-neutral-900 tracking-tight">
-                Disegno testi, flussi e dialoghi intelligenti. <br />
-                <span className="text-neutral-400 font-light">Risolvo problemi di usabilità.</span> <br />
-                Progetto ponti naturali tra persone ed AI.
+              <h1 className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] text-neutral-900 tracking-tighter uppercase">
+                Disegno testi, <br className="hidden sm:inline" />
+                flussi e dialoghi <br className="hidden sm:inline" />
+                intelligenti<span className="text-brand-accent">.</span>
               </h1>
+              <p className="mt-8 text-base sm:text-lg md:text-xl font-light text-neutral-500 leading-relaxed max-w-2xl font-sans">
+                Risolvo problemi di usabilità, progettando ponti naturali tra le persone e l'intelligenza artificiale. Un approccio umanocentrico fondato sul rigore e sulla semplicità.
+              </p>
             </div>
 
-            {/* Elementi del Manifesto in griglia geometrica sfalsata */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-10 border-t border-black/[0.05] mt-10">
+            {/* Elementi del Manifesto in griglia geometrica stile Sketchin (blueprint) */}
+            <div className="grid grid-cols-1 md:grid-cols-3 border border-black/10 divide-y md:divide-y-0 md:divide-x divide-black/10 bg-white mt-16 rounded-none shadow-[0_8px_30px_rgb(0,0,0,0.015)]">
               {designManifestoPoints.map((point, index) => (
-                <div key={point.term} className="flex flex-col gap-1.5">
-                  <span className="text-[10px] font-mono text-neutral-400 font-medium">
-                    0{index + 1} — {point.term}
-                  </span>
+                <div key={point.term} className="p-6 md:p-8 flex flex-col gap-4 group hover:bg-neutral-50 transition-colors">
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] font-mono text-neutral-400 font-bold uppercase tracking-wider">
+                      Manifesto / 0{index + 1}
+                    </span>
+                    <span className="w-2 h-2 bg-brand-accent rounded-none transition-transform group-hover:scale-125" />
+                  </div>
+                  <h3 className="text-xs font-bold uppercase tracking-wide text-neutral-900">
+                    {point.term}
+                  </h3>
                   <p className="text-xs text-neutral-500 leading-relaxed font-light">
                     {point.desc}
                   </p>
@@ -194,12 +203,12 @@ export default function App() {
             <div className="flex justify-center mt-12 md:mt-16">
               <a 
                 href="#work" 
-                className="group flex flex-col items-center gap-2.5 text-[9px] font-mono uppercase tracking-[0.2em] text-neutral-400 hover:text-neutral-900 transition-colors focus:outline-none"
+                className="group flex flex-col items-center gap-2 text-[9px] font-mono uppercase tracking-[0.25em] text-neutral-400 hover:text-neutral-900 transition-colors focus:outline-none"
                 aria-label="Scorri ai progetti di lavoro"
               >
-                <span className="font-semibold">01<span className="text-brand-accent font-bold">.</span> I miei lavori</span>
-                <div className="w-8 h-8 rounded-full border border-black/[0.06] flex items-center justify-center bg-white shadow-[0_1px_3px_rgba(0,0,0,0.02)] transition-all duration-300 group-hover:translate-y-0.5 group-hover:border-brand-accent/30">
-                  <ArrowDown size={12} className="text-brand-accent" />
+                <span className="font-bold">01<span className="text-brand-accent font-bold">.</span> I miei lavori</span>
+                <div className="w-6 h-6 border border-neutral-200 flex items-center justify-center bg-white transition-all duration-300 group-hover:translate-y-1 group-hover:border-brand-accent group-hover:bg-neutral-50">
+                  <ArrowDown size={10} className="text-brand-accent" />
                 </div>
               </a>
             </div>
@@ -225,43 +234,43 @@ export default function App() {
             </div>
 
             {/* Lista a scomparsa dei lavori */}
-            <div className="flex flex-col text-neutral-900 border-t border-black/[0.06]">
+            <div className="flex flex-col text-neutral-900 border-t border-black/10">
               {works.map((work, index) => {
                 const isOpen = activeProject === index;
                 return (
                   <div 
                     key={work.title}
-                    className="border-b border-black/[0.06] transition-all duration-200"
+                    className="border-b border-black/10 transition-all duration-200 bg-white"
                   >
                     {/* Barra di apertura */}
                     <button
                       onClick={() => setActiveProject(isOpen ? null : index)}
-                      className="w-full flex flex-col md:flex-row md:items-center justify-between text-left py-6 md:py-8 hover:bg-neutral-200/10 px-3 transition-all duration-200 focus:outline-none group"
+                      className="w-full flex flex-col md:flex-row md:items-center justify-between text-left py-6 md:py-8 hover:bg-neutral-50 px-4 transition-all duration-200 focus:outline-none group"
                     >
                       <div className="flex items-center gap-6">
-                        <span className="font-mono text-xs text-neutral-300 group-hover:text-neutral-800 transition-colors">
+                        <span className="font-mono text-xs text-neutral-400 group-hover:text-black transition-colors font-bold">
                           ({work.catalogNum})
                         </span>
                         <div>
-                          <h3 className="font-sans text-lg md:text-xl font-bold text-neutral-900 group-hover:text-neutral-600 transition-colors">
+                          <h3 className="font-sans text-lg md:text-xl font-bold uppercase tracking-tight text-neutral-900 group-hover:text-brand-accent transition-colors">
                             {work.title}
                           </h3>
-                          <span className="text-[9px] font-mono text-neutral-400 uppercase tracking-widest block mt-0.5">
+                          <span className="text-[9px] font-mono text-neutral-400 uppercase tracking-widest block mt-0.5 font-bold">
                             {work.subtitle}
                           </span>
                         </div>
                       </div>
 
                       <div className="flex items-center justify-between mt-3 md:mt-0 gap-8">
-                        <span className="text-[9px] font-mono uppercase tracking-wider text-neutral-400 font-light">
+                        <span className="text-[9px] font-mono uppercase tracking-wider text-neutral-400 font-bold">
                           {work.collaboration}
                         </span>
-                        <span className="text-[9px] font-mono text-neutral-300">
+                        <span className="text-[9px] font-mono text-neutral-400 font-bold">
                           {work.period}
                         </span>
                         <div className={cn(
-                          "w-6 h-6 rounded-full border border-black/10 flex items-center justify-center transition-all duration-300 text-neutral-400 group-hover:text-brand-accent group-hover:border-brand-accent/40",
-                          isOpen ? "bg-brand-accent border-brand-accent text-white rotate-45" : "bg-transparent"
+                          "w-6 h-6 border border-black/10 flex items-center justify-center transition-all duration-300 text-neutral-400 group-hover:text-brand-accent group-hover:border-brand-accent",
+                          isOpen ? "bg-brand-accent border-brand-accent text-white rotate-45" : "bg-white"
                         )}>
                           <ArrowUpRight size={10} />
                         </div>
@@ -276,35 +285,35 @@ export default function App() {
                           animate={{ height: 'auto', opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.4, ease: "easeInOut" }}
-                          className="overflow-hidden bg-[#ffffff]"
+                          className="overflow-hidden bg-[#faf9f8]"
                         >
-                          <div className="p-6 md:p-10 border-t border-black/[0.04] grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                          <div className="p-6 md:p-10 border-t border-black/10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                             
                             {/* Dati testuali di cura editoriale */}
-                            <div className="lg:col-span-5 flex flex-col justify-between">
+                            <div className="lg:col-span-5 flex flex-col justify-between self-stretch">
                               <div>
-                                <span className="font-mono text-[9px] uppercase tracking-wider text-neutral-500 bg-neutral-100 px-2 py-0.5 rounded inline-block mb-4">
+                                <span className="font-mono text-[9px] uppercase tracking-wider text-neutral-600 bg-neutral-200/60 px-2 py-1 rounded-none inline-block mb-4 font-bold border border-black/[0.05]">
                                   {work.subtitle}
                                 </span>
 
-                                <p className="text-xs text-neutral-600 font-light leading-relaxed mb-4">
+                                <p className="text-xs text-neutral-600 leading-relaxed mb-4 font-sans">
                                   {work.description}
                                 </p>
 
-                                <div className="border-t border-black/[0.04] pt-4 mb-4">
+                                <div className="border-t border-black/10 pt-4 mb-4">
                                   <h4 className="text-[9px] font-mono uppercase tracking-wider text-neutral-400 mb-1.5 font-bold">
                                     Soluzioni di copy:
                                   </h4>
-                                  <p className="text-xs text-neutral-500 leading-relaxed font-light">
+                                  <p className="text-xs text-neutral-500 leading-relaxed font-sans">
                                     {work.editorialAnalysis}
                                   </p>
                                 </div>
                               </div>
 
-                              <div className="pt-2">
-                                <div className="flex flex-wrap gap-1 mb-4">
+                              <div className="pt-4 mt-auto">
+                                <div className="flex flex-wrap gap-1 mb-6">
                                   {work.methodology.map((m) => (
-                                    <span key={m} className="text-[8px] font-mono text-neutral-400 border border-neutral-200 px-2 py-0.5 rounded-full bg-neutral-50 uppercase font-semibold">
+                                    <span key={m} className="text-[8px] font-mono text-neutral-500 border border-black/[0.08] px-2 py-1 rounded-none bg-white uppercase font-bold tracking-wider shadow-[0_1px_2px_rgba(0,0,0,0.01)]">
                                       {m}
                                     </span>
                                   ))}
@@ -314,7 +323,7 @@ export default function App() {
                                   href={work.link} 
                                   target="_blank" 
                                   rel="noopener noreferrer" 
-                                  className="inline-flex items-center gap-1.5 text-[10px] font-mono tracking-wider text-neutral-900 hover:text-brand-accent border-b border-brand-accent pb-0.5 transition-all duration-200 font-bold"
+                                  className="inline-flex items-center gap-1.5 text-[10px] font-mono tracking-wider text-neutral-900 hover:text-brand-accent border-b-2 border-brand-accent pb-0.5 transition-all duration-200 font-bold uppercase"
                                 >
                                   VEDI IL CASO STUDIO
                                   <ArrowUpRight size={10} className="text-brand-accent" />
@@ -323,7 +332,7 @@ export default function App() {
                             </div>
 
                             {/* Anteprima visiva dal sapore neutro e professionale */}
-                            <div className="lg:col-span-7 rounded overflow-hidden border border-black/[0.04] bg-neutral-50 relative group">
+                            <div className="lg:col-span-7 rounded-none overflow-hidden border border-black/10 bg-neutral-100 relative group">
                               <img 
                                 src={work.imageUrl} 
                                 alt={work.title} 
@@ -348,12 +357,12 @@ export default function App() {
             <div className="flex justify-center mt-14 pt-8 border-t border-black/[0.04]">
               <a 
                 href="#services" 
-                className="group flex flex-col items-center gap-2.5 text-[9px] font-mono uppercase tracking-[0.2em] text-neutral-400 hover:text-neutral-900 transition-colors focus:outline-none"
+                className="group flex flex-col items-center gap-2 text-[9px] font-mono uppercase tracking-[0.25em] text-neutral-400 hover:text-neutral-900 transition-colors focus:outline-none"
                 aria-label="Scorri alla sezione servizio/competenze"
               >
-                <span className="font-semibold">02<span className="text-brand-accent font-bold">.</span> Cosa faccio</span>
-                <div className="w-8 h-8 rounded-full border border-black/[0.06] flex items-center justify-center bg-white shadow-[0_1px_3px_rgba(0,0,0,0.02)] transition-all duration-300 group-hover:translate-y-0.5 group-hover:border-brand-accent/30">
-                  <ArrowDown size={12} className="text-brand-accent" />
+                <span className="font-bold">02<span className="text-brand-accent font-bold">.</span> Cosa faccio</span>
+                <div className="w-6 h-6 border border-neutral-200 flex items-center justify-center bg-white transition-all duration-300 group-hover:translate-y-1 group-hover:border-brand-accent group-hover:bg-neutral-50">
+                  <ArrowDown size={10} className="text-brand-accent" />
                 </div>
               </a>
             </div>
@@ -372,25 +381,25 @@ export default function App() {
                   Cosa faccio
                 </h2>
               </div>
-              <p className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest">
+              <p className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest font-bold">
                 Aree di specializzazione e competenze
               </p>
             </div>
 
-            {/* Struttura Geometrica Pulita in stile Svizzero */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-neutral-100 border border-neutral-200/60 rounded overflow-hidden">
+            {/* Struttura Geometrica Pulita in stile Svizzero (blueprint grid) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 border border-black/10 divide-y divide-x-0 md:divide-y-0 md:divide-x divide-black/10 bg-black/[0.04] rounded-none">
               {services.map((service) => (
                 <div 
                   key={service.category}
-                  className="bg-white p-6 md:p-8 flex flex-col justify-between min-h-[220px]"
+                  className="bg-white p-8 md:p-10 flex flex-col justify-between min-h-[250px] transition-colors hover:bg-neutral-50 group"
                 >
                   <div>
                     <div className="flex justify-between items-center mb-6">
-                      <span className="font-mono text-[10px] text-neutral-300">({service.num})</span>
-                      <span className="w-1 h-1 rounded-full bg-neutral-200" />
+                      <span className="font-mono text-[10px] text-neutral-300 font-bold">({service.num})</span>
+                      <span className="w-1.5 h-1.5 bg-neutral-200 group-hover:bg-brand-accent transition-colors" />
                     </div>
 
-                    <h3 className="font-sans text-sm font-bold text-neutral-800 mb-2">
+                    <h3 className="font-sans text-sm font-bold uppercase tracking-wide text-neutral-800 mb-2">
                       {service.category}
                     </h3>
                     
@@ -402,7 +411,7 @@ export default function App() {
                   <div className="border-t border-neutral-100 pt-4 mt-auto">
                     <div className="flex flex-wrap gap-1">
                       {service.curatedFocus.map((focus) => (
-                        <span key={focus} className="text-[9px] font-mono text-neutral-400 bg-neutral-50 px-2 py-0.5 rounded border border-black/[0.02] font-medium">
+                        <span key={focus} className="text-[9px] font-mono text-neutral-500 bg-neutral-50 px-2 py-1 rounded-none border border-black/[0.04] font-bold uppercase tracking-wider">
                           {focus}
                         </span>
                       ))}
@@ -417,12 +426,12 @@ export default function App() {
             <div className="flex justify-center mt-14 pt-8 border-t border-black/[0.04]">
               <a 
                 href="#contact" 
-                className="group flex flex-col items-center gap-2.5 text-[9px] font-mono uppercase tracking-[0.2em] text-neutral-400 hover:text-neutral-900 transition-colors focus:outline-none"
+                className="group flex flex-col items-center gap-2 text-[9px] font-mono uppercase tracking-[0.25em] text-neutral-400 hover:text-neutral-900 transition-colors focus:outline-none"
                 aria-label="Scorri ai contatti"
               >
-                <span className="font-semibold">03<span className="text-brand-accent font-bold">.</span> Mettiti in contatto</span>
-                <div className="w-8 h-8 rounded-full border border-black/[0.06] flex items-center justify-center bg-white shadow-[0_1px_3px_rgba(0,0,0,0.02)] transition-all duration-300 group-hover:translate-y-0.5 group-hover:border-brand-accent/30">
-                  <ArrowDown size={12} className="text-brand-accent" />
+                <span className="font-bold">03<span className="text-brand-accent font-bold">.</span> Mettiti in contatto</span>
+                <div className="w-6 h-6 border border-neutral-200 flex items-center justify-center bg-white transition-all duration-300 group-hover:translate-y-1 group-hover:border-brand-accent group-hover:bg-neutral-50">
+                  <ArrowDown size={10} className="text-brand-accent" />
                 </div>
               </a>
             </div>
@@ -452,10 +461,10 @@ export default function App() {
                 </h2>
 
                 <div className="mt-10 flex items-center gap-4 md:group-hover:gap-8 transition-all duration-300">
-                  <span className="text-sm sm:text-lg md:text-xl font-mono tracking-tight border-b border-white md:border-white/25 md:group-hover:border-white text-white md:text-neutral-300 md:group-hover:text-white pb-0.5 transition-all">
+                  <span className="text-sm sm:text-lg md:text-xl font-mono tracking-tight border-b border-white md:border-white/25 md:group-hover:border-white text-white md:text-neutral-300 md:group-hover:text-white pb-0.5 transition-all font-bold">
                     dmntroiani@gmail.com
                   </span>
-                  <div className="hidden md:flex w-12 h-12 rounded-full border border-white/15 text-white group-hover:bg-white group-hover:border-white group-hover:text-neutral-900 items-center justify-center transition-all duration-300">
+                  <div className="hidden md:flex w-12 h-12 border border-white/15 text-white group-hover:bg-white group-hover:border-white group-hover:text-neutral-900 items-center justify-center transition-all duration-300 rounded-none">
                     <ArrowRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
                   </div>
                 </div>

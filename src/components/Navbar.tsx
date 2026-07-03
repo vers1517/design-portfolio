@@ -114,7 +114,7 @@ export function Navbar({ isFooterVisible = false }: NavbarProps) {
               key={link.name}
               href={link.href}
               className={cn(
-                "group flex items-center h-12 rounded transition-all duration-200",
+                "group flex items-center h-12 rounded-none transition-all duration-200",
                 isExpanded ? "px-4 hover:bg-neutral-100" : "justify-center"
               )}
             >
@@ -136,7 +136,7 @@ export function Navbar({ isFooterVisible = false }: NavbarProps) {
                     {link.num}
                   </span>
                   {/* Floating pure tooltip */}
-                  <div className="absolute left-10 px-3 py-1.5 rounded bg-white border border-neutral-100 text-[10px] tracking-wider font-mono text-neutral-800 opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-200 translate-x-2 group-hover:translate-x-0 whitespace-nowrap shadow-md">
+                  <div className="absolute left-10 px-3 py-1.5 rounded-none bg-white border border-neutral-100 text-[10px] tracking-wider font-mono text-neutral-800 opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-200 translate-x-2 group-hover:translate-x-0 whitespace-nowrap shadow-md">
                     {link.name}
                   </div>
                 </div>
@@ -183,7 +183,7 @@ export function Navbar({ isFooterVisible = false }: NavbarProps) {
       >
         <button 
           onClick={() => setMobileMenuOpen(true)}
-          className="flex items-center justify-center p-2 rounded hover:bg-neutral-100 transition-all focus:outline-none" 
+          className="flex items-center justify-center p-2 rounded-none hover:bg-neutral-100 transition-all focus:outline-none" 
           aria-label="Apri menu"
         >
           <svg viewBox="0 0 100 80" className="w-[28px] h-auto active:scale-90 transition-transform" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -204,17 +204,17 @@ export function Navbar({ isFooterVisible = false }: NavbarProps) {
             scale: isFooterVisible ? 0.3 : 1
           }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="p-3 hover:bg-neutral-50 rounded text-neutral-400 hover:text-neutral-700 focus:outline-none transition-colors active:scale-95 flex flex-col gap-1 items-center justify-center"
+          className="p-3 hover:bg-neutral-50 rounded-none text-neutral-400 hover:text-neutral-700 focus:outline-none transition-colors active:scale-95 flex flex-col gap-1 items-center justify-center"
           aria-label="Apri menu"
         >
-          <span className="w-1 h-1 rounded-full bg-neutral-400 block" />
-          <span className="w-1 h-1 rounded-full bg-neutral-400 block" />
-          <span className="w-1 h-1 rounded-full bg-neutral-400 block" />
+          <span className="w-1.5 h-1.5 bg-neutral-400 block rounded-none" />
+          <span className="w-1.5 h-1.5 bg-neutral-400 block rounded-none" />
+          <span className="w-1.5 h-1.5 bg-neutral-400 block rounded-none" />
         </motion.button>
 
         {/* Balanced spacing block at the bottom */}
         <div className="w-8 h-8 flex items-center justify-center">
-          <span className="w-1 h-1 rounded-full bg-neutral-200" />
+          <span className="w-1.5 h-1.5 bg-neutral-200" />
         </div>
       </motion.div>
 
@@ -230,7 +230,7 @@ export function Navbar({ isFooterVisible = false }: NavbarProps) {
             onClick={() => {
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="md:hidden fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-white border border-black/[0.08] text-neutral-900 flex items-center justify-center shadow-lg active:scale-95 hover:bg-neutral-50 focus:outline-none focus:ring-1 focus:ring-brand-accent transition-colors"
+            className="md:hidden fixed bottom-6 right-6 z-50 w-12 h-12 rounded-none bg-white border border-black/15 text-neutral-900 flex items-center justify-center shadow-md active:scale-95 hover:bg-neutral-50 focus:outline-none focus:ring-1 focus:ring-brand-accent transition-colors"
             aria-label="Torna all'inizio della pagina"
           >
             <ArrowUp size={18} className="text-neutral-900" />
@@ -261,7 +261,7 @@ export function Navbar({ isFooterVisible = false }: NavbarProps) {
               </div>
               <button 
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-1.5 text-neutral-800 hover:bg-neutral-100 rounded-full transition-colors focus:outline-none"
+                className="p-1.5 text-neutral-800 hover:bg-neutral-100 rounded-none transition-colors focus:outline-none"
                 aria-label="Chiudi menu"
               >
                 <X size={20} />
